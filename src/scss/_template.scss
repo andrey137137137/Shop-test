@@ -23,35 +23,32 @@ ol {
   list-style-position: inside;
 }
 
-// .col,
-// .card,
-// .card-body {
-//   overflow: hidden;
-// }
-
 .section {
   overflow: hidden;
 
-  // &:nth-child(odd) {
-  //   background-color: #ccc;
-  // }
+  &-body {
+    display: flex;
+    justify-content: space-between;
+  }
 
   &-container {
-    justify-content: space-between;
+    $sidePadding: 15px;
+
     @include margin('* auto');
+    @include padding('* #{$sidePadding}');
     min-width: $minWidth;
     max-width: $mdWidth;
 
     @include md {
-      max-width: $lgWidth;
+      max-width: $lgWidth + $sidePadding;
     }
 
     @include lg {
-      max-width: $xlWidth;
+      max-width: $xlWidth + $sidePadding;
     }
 
     @include xl {
-      max-width: $maxWidth;
+      max-width: $maxWidth + $sidePadding;
     }
   }
 

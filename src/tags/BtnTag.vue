@@ -1,5 +1,5 @@
 <template lang='pug'>
-button(:class='classes', :type='type')
+button(:class='compClasses', :type='type')
   slot
 </template>
 
@@ -7,13 +7,10 @@ button(:class='classes', :type='type')
 import addClassesMixin from '@mxn/addClassesMixin';
 
 export default {
-  name: 'BtnCmp',
+  name: 'BtnTag',
   mixins: [addClassesMixin],
   props: {
-    type: {
-      type: String,
-      default: 'button',
-    },
+    type: { type: String, default: 'button' },
   },
 };
 </script>

@@ -1,4 +1,10 @@
 @mixin breakpoint($value) {
+  $breakpoints: (
+    'md': $mdWidth,
+    'lg': $lgWidth,
+    'xl': $xlWidth,
+  );
+
   // @media only screen and (min-width: map-get($breakpoints, $value)) {
   @media (min-width: map-get($breakpoints, $value)) {
     @content;
@@ -104,9 +110,22 @@
   @include cssProp(position, $value);
 }
 
-@mixin oneLineBlock($height, $border: 0) {
+@mixin inlineFontSize($size, $height) {
+  font-size: $size + 'px';
+  line-height: $height / $size * 100%;
+}
+
+@mixin inlineBlock($fontSize, $height, $border: 0) {
   height: $height;
-  line-height: $height - $border * 2;
+  @include inlineFontSize($fontSize, $height - $border * 2);
+}
+
+@mixin btn($fontSize, $height, $borderWidth: 0, $borderColor: unset) {
+  @if ($borderWidth) {
+    border: $borderWidth solid $borderColor;
+  }
+
+  @include inlineBlock($fontSize, $height, $borderWidth);
 }
 
 @mixin percentsToOpacity($percents) {

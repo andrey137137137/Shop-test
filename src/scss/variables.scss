@@ -22,17 +22,11 @@ $zSuperSuper: 100000000;
 
 // $minWidth: 320px;
 $minWidth: 0;
-// $maxWidth: 1264px;
+// $maxWidth: 1440px;
 $maxWidth: none;
 
 $mdWidth: 768px;
 $lgWidth: 1200px;
-$xlWidth: 1800px;
-
-$breakpoints: (
-  'md': $mdWidth,
-  'lg': $lgWidth,
-  'xl': $xlWidth,
-);
+$xlWidth: 1240px;
 
 $borderRadius: 10px;

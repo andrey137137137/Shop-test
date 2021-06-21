@@ -1,40 +1,86 @@
 <template lang='pug'>
-header.header
+header.section.header
   .header-wrapper
     .section-container.header-container
-      .header-body
+      .section-body.header-body
         .header-main
-          LinkCmp.header-logo
+          LinkTag.header-logo Funiro.
           .menu.header-menu
             nav.menu-body
               ul.menu-list
-                li.menu-item(v-for='i in 3')
-                  LinkCmp.menu-link {{ i }}
-                  BtnCmp.menu-arrow.icon-arrow_down
-                  ul.menu-sub_list
-                    li.menu-sub_item
-                      LinkCmp.menu-sub_link(v-for='i in 4', :key='i') Product {{ i }}
+                li.menu-item(v-for='item in menuItems')
+                  LinkTag.menu-link {{ item.title }}
+                  div(v-if='areSubItems(item.items)')
+                    BtnTag(iconClass='arrow_down', classes='menu-arrow')
+                    ul.menu-sub_list
+                      li.menu-sub_item(v-for='i in item.items', :key='i')
+                        LinkTag.menu-sub_link {{ getSubTitle(item.title, i) }}
         .header-search
           .search_form
-            BtnCmp.search_form-icon.icon-search
+            BtnTag(iconClass='search', classes='search_form-icon')
             form.search_form-item(action='#')
-        .header-actions
-        BtnCmp.icon_menu
+              BtnTag(
+                iconClass='search',
+                classes='search_form-btn',
+                type='submit'
+              )
+              input.search_form-input(autocomplete='off', type='text')
+        .actions.header-actions
+          LinkTag(
+            iconClass='favorites',
+            classes='actions-item actions-favorites'
+          )
+          .actions-item.cart
+            LinkTag(iconClass='cart', classes='cart-icon')
+            .cart-body
+              ul.cart-list
+          LinkTag.actions-item.actions-item_user
+            imgTag(src='img/avatar.jpg', alt='Avatar')
+        BtnTag.icon_menu
           span(v-for='i in 3')
 </template>
 
 <script>
-import LinkCmp from '@cmp/LinkCmp.vue';
-import BtnCmp from '@cmp/BtnCmp.vue';
+import LinkTag from '@tags/LinkTag.vue';
+import BtnTag from '@tags/BtnTag.vue';
+import imgTag from '@tags/imgTag.vue';
 
 export default {
   name: 'HeaderCmp',
   components: {
-    LinkCmp,
-    BtnCmp,
+    LinkTag,
+    BtnTag,
+    imgTag,
   },
-  props: {
-    msg: String,
+  data() {
+    return {
+      menuItems: [
+        {
+          title: 'Products',
+          link: '',
+          items: 4,
+        },
+        {
+          title: 'Rooms',
+          link: '',
+          items: 4,
+        },
+        {
+          title: 'Inspirations',
+          link: '',
+          items: 0,
+        },
+      ],
+    };
+  },
+  methods: {
+    areSubItems(items) {
+      return items;
+    },
+    getSubTitle(parentTitle, index) {
+      const title = parentTitle.substr(0, parentTitle.length - 1);
+      return `${title} #${index}`;
+    },
   },
 };
 </script>

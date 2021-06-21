@@ -1,5 +1,5 @@
 <template lang='pug'>
-a(:class='classes', :href='href')
+a(:class='compClasses', :href='href')
   slot
 </template>
 
@@ -7,13 +7,10 @@ a(:class='classes', :href='href')
 import addClassesMixin from '@mxn/addClassesMixin';
 
 export default {
-  name: 'LinkCmp',
+  name: 'LinkTag',
   mixins: [addClassesMixin],
   props: {
-    href: {
-      type: String,
-      default: '',
-    },
+    href: { type: String, default: '' },
   },
 };
 </script>

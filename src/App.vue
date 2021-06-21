@@ -1,6 +1,8 @@
 <template lang='pug'>
 #app
-  HeaderCmp(msg='Welcome to Your Vue.js App')
+  .wrapper
+    HeaderCmp(msg='Welcome to Your Vue.js App')
+    .page
 </template>
 
 <script>
