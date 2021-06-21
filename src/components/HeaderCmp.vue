@@ -1,29 +1,25 @@
 <template lang='pug'>
 header.header
   .header-wrapper
-    .header-container
+    .section-container.header-container
       .header-body
         .header-main
-          LinkCmp(classes='header-logo')
+          LinkCmp.header-logo
           .menu.header-menu
             nav.menu-body
               ul.menu-list
                 li.menu-item(v-for='i in 3')
-                  LinkCmp(classes='menu-link') {{ i }}
-                  BtnCmp(classes='menu-arrow icon-arrow_down')
+                  LinkCmp.menu-link {{ i }}
+                  BtnCmp.menu-arrow.icon-arrow_down
                   ul.menu-sub_list
                     li.menu-sub_item
-                      LinkCmp(
-                        v-for='i in 4',
-                        :key='i',
-                        classes='menu-sub_link'
-                      ) Product {{ i }}
+                      LinkCmp.menu-sub_link(v-for='i in 4', :key='i') Product {{ i }}
         .header-search
           .search_form
-            BtnCmp(classes='search_form-icon icon-search')
+            BtnCmp.search_form-icon.icon-search
             form.search_form-item(action='#')
         .header-actions
-        BtnCmp(classes='icon_menu')
+        BtnCmp.icon_menu
           span(v-for='i in 3')
 </template>
 

@@ -4,12 +4,12 @@ a(:class='classes', :href='href')
 </template>
 
 <script>
+import addClassesMixin from '@mxn/addClassesMixin';
+
 export default {
   name: 'LinkCmp',
+  mixins: [addClassesMixin],
   props: {
-    classes: {
-      required: true,
-    },
     href: {
       type: String,
       default: '',

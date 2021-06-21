@@ -16,7 +16,7 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias.set('@assets', resolve('assets'));
     config.resolve.alias.set('@cmp', resolve('components'));
-    config.resolve.alias.set('@mixins', resolve('mixins'));
+    config.resolve.alias.set('@mxn', resolve('mixins'));
     config.resolve.alias.set('@views', resolve('views'));
 
     config.resolve.alias.set('@scss', resolve('scss'));

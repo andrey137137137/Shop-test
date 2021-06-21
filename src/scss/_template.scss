@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+
+  &:before,
+  &:after {
+    box-sizing: border-box;
+  }
+}
+
+body {
+  font-family: $mainFonts;
+  position: relative;
+  font-size: 16px/26px;
+  // line-height: 25.66px;
+  color: $darkBlack #e5e5e5;
+}
+
+ul,
+ol {
+  list-style-type: none;
+  list-style-position: inside;
+}
+
+// .col,
+// .card,
+// .card-body {
+//   overflow: hidden;
+// }
+
+.section {
+  overflow: hidden;
+
+  // &:nth-child(odd) {
+  //   background-color: #ccc;
+  // }
+
+  &-container {
+    justify-content: space-between;
+    @include margin('* auto');
+    min-width: $minWidth;
+    max-width: $mdWidth;
+
+    @include md {
+      max-width: $lgWidth;
+    }
+
+    @include lg {
+      max-width: $xlWidth;
+    }
+
+    @include xl {
+      max-width: $maxWidth;
+    }
+  }
+
+  &-title {
+    font-weight: 800;
+    font-size: 24px;
+    // line-height: 38px;
+
+    &--sub {
+      font-family: $subTitleFonts;
+    }
+
+    &--large {
+      margin-bottom: 75px;
+      font-size: 64px;
+      line-height: 76px;
+    }
+
+    &--big {
+      margin-bottom: 31px;
+      @include padding('* 6px');
+      font-size: 40px;
+      // line-height: 48px;
+    }
+  }
+}
+
+// .row > * {
+//   margin-top: 0;
+// }
+
+.text-muted {
+  color: $grey;
+}
+
+.img_wrap {
+  margin-bottom: 0;
+
+  &-img {
+    width: auto;
+    max-width: 100%;
+  }
+}
+
+.list {
+  $block: &;
+
+  padding-left: 0;
+  list-style: none outside;
+
+  &--dotted {
+    #{$block}-item {
+      position: relative;
+      padding-left: 11px;
+
+      &:before {
+        @include position('absolute 12px * * 0');
+        display: block;
+        border-radius: 50%;
+        size: 2px;
+        background-color: $darkBlack;
+        content: '';
+      }
+    }
+  }
+}
+
+.btn {
+  $bgColor: #6c5dd2;
+
+  border-radius: $borderRadius;
+  padding: 0 24px;
+  font-size: 18px/50px;
+
+  &-primary {
+    border-color: $bgColor;
+    background-color: $bgColor;
+  }
+
+  &--high {
+    line-height: 57px;
+  }
+}
+
+.card {
+  border-width: 0;
+  border-radius: $borderRadius;
+  @include padding('* 0');
+}

@@ -1,0 +1,38 @@
+$reserveFonts: Arial, Helvetica, sans-serif;
+// $reserveFonts: 'Times New Roman';
+$mainFonts: BlissPro, $reserveFonts;
+$subTitleFonts: 'BlissPro-ExtraBold', $mainFonts;
+
+$trsTime: 1s;
+
+$white: #fff;
+
+$grey: #c4c4c4;
+
+$darkBlack: #343434;
+$black: #000;
+
+$red: #e44845;
+$blue: #8dc0f5;
+$darkBlue: #083c96;
+
+$zMax: 100000000000000;
+$zSuper: 10000000;
+$zSuperSuper: 100000000;
+
+// $minWidth: 320px;
+$minWidth: 0;
+// $maxWidth: 1264px;
+$maxWidth: none;
+
+$mdWidth: 768px;
+$lgWidth: 1200px;
+$xlWidth: 1800px;
+
+$breakpoints: (
+  'md': $mdWidth,
+  'lg': $lgWidth,
+  'xl': $xlWidth,
+);
+
+$borderRadius: 10px;
