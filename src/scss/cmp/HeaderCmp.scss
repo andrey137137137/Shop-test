@@ -39,28 +39,40 @@
       }
 
       &-item {
+        $elem: &;
+
         position: relative;
         @include flexOn('center', 'space-between', 'wrap');
         @include margin('* 3px');
         @include padding('5px *');
 
+        @mixin touchStyles() {
+          #{$block}-link,
+          #{$block}-arrow {
+            color: $orange;
+          }
+
+          #{$block}-arrow {
+            transform: rotate(180deg);
+          }
+
+          #{$block}-sub_list {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translateY(0);
+          }
+        }
+
+        @include md {
+          &#{$elem}--hover {
+            @include touchStyles;
+          }
+        }
+
         @media (any-hover: hover) {
           &:hover {
-            .menu-link,
-            .menu-arrow {
-              color: $orange;
-            }
-
-            .menu-arrow {
-              transform: rotate(180deg);
-            }
-
-            .menu-sub_list {
-              opacity: 1;
-              visibility: visible;
-              pointer-events: auto;
-              transform: translateY(0);
-            }
+            @include touchStyles;
           }
         }
       }

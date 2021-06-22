@@ -8,12 +8,16 @@ header.section.header
           .menu.header-menu
             nav.menu-body
               ul.menu-list
-                li.menu-item(v-for='item in menuItems')
+                li.menu-item(
+                  v-for='(item, index) in menuItems',
+                  :class='itemHoverClass(index)'
+                )
                   LinkTag.menu-link {{ item.title }}
                   BtnTag(
                     v-if='areSubItems(item.items)',
                     iconClass='arrow_down',
-                    classes='menu-arrow'
+                    classes='menu-arrow',
+                    @click.native='onClick(index)'
                   ) ^
                   ul.menu-sub_list(v-if='areSubItems(item.items)')
                     li.menu-sub_item(v-for='i in item.items', :key='i')
@@ -74,15 +78,49 @@ export default {
           items: 0,
         },
       ],
+      clickedItem: -1,
     };
   },
+  computed: {
+    isPad() {
+      if (
+        window.innerWidth >= 768 &&
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+          navigator.userAgent,
+        )
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+  },
   methods: {
+    itemHoverClass(index) {
+      if (this.clickedItem == index) {
+        return 'menu-item--hover';
+      }
+
+      return '';
+    },
     areSubItems(items) {
       return items;
     },
     getSubTitle(parentTitle, index) {
       const title = parentTitle.substr(0, parentTitle.length - 1);
       return `${title} #${index}`;
+    },
+    onClick(index) {
+      if (!this.isPad) {
+        this.clickedItem = -1;
+        return;
+      }
+
+      if (this.clickedItem == index) {
+        this.clickedItem = -1;
+      } else {
+        this.clickedItem = index;
+      }
     },
   },
 };
