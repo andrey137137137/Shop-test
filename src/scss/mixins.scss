@@ -1,8 +1,8 @@
 @mixin breakpoint($value) {
   $breakpoints: (
-    'md': $mdWidth,
-    'lg': $lgWidth,
-    'xl': $xlWidth,
+    'md': withPx($mdWidth),
+    'lg': withPx($lgWidth),
+    'xl': withPx($xlWidth),
   );
 
   // @media only screen and (min-width: map-get($breakpoints, $value)) {
@@ -110,9 +110,13 @@
   @include cssProp(position, $value);
 }
 
+@mixin defaultPosition($type) {
+  @include position('#{$type} 0 * * 0');
+}
+
 @mixin inlineFontSize($size, $height) {
-  font-size: $size + 'px';
-  line-height: $height / $size * 100%;
+  font-size: withPx($size);
+  line-height: toPercent($height, $size);
 }
 
 @mixin inlineBlock($fontSize, $height, $border: 0) {

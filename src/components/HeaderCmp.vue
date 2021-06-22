@@ -10,11 +10,14 @@ header.section.header
               ul.menu-list
                 li.menu-item(v-for='item in menuItems')
                   LinkTag.menu-link {{ item.title }}
-                  div(v-if='areSubItems(item.items)')
-                    BtnTag(iconClass='arrow_down', classes='menu-arrow')
-                    ul.menu-sub_list
-                      li.menu-sub_item(v-for='i in item.items', :key='i')
-                        LinkTag.menu-sub_link {{ getSubTitle(item.title, i) }}
+                  BtnTag(
+                    v-if='areSubItems(item.items)',
+                    iconClass='arrow_down',
+                    classes='menu-arrow'
+                  )
+                  ul.menu-sub_list(v-if='areSubItems(item.items)')
+                    li.menu-sub_item(v-for='i in item.items', :key='i')
+                      LinkTag.menu-sub_link {{ getSubTitle(item.title, i) }}
         .header-search
           .search_form
             BtnTag(iconClass='search', classes='search_form-icon')
@@ -85,5 +88,5 @@ export default {
 };
 </script>
 
-<style lang='scss'>
+<style lang='scss' src='@scssCmp/HeaderCmp.scss'>
 </style>

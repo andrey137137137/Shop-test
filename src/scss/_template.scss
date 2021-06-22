@@ -12,9 +12,10 @@
 body {
   font-family: $mainFonts;
   position: relative;
-  font-size: 16px/26px;
-  // line-height: 25.66px;
-  color: $darkBlack #e5e5e5;
+}
+
+a {
+  text-decoration: none;
 }
 
 ul,
@@ -32,24 +33,24 @@ ol {
   }
 
   &-container {
-    $sidePadding: 15px;
+    $sidePadding: 15;
 
     @include margin('* auto');
     @include padding('* #{$sidePadding}');
-    min-width: $minWidth;
-    max-width: $mdWidth;
+    min-width: withPx($minWidth);
+    max-width: withPx($mdWidth);
 
     @include md {
-      max-width: $lgWidth + $sidePadding;
+      max-width: withPx($lgWidth + $sidePadding);
     }
 
     @include lg {
-      max-width: $xlWidth + $sidePadding;
+      max-width: withPx($xlWidth + $sidePadding);
     }
 
-    @include xl {
-      max-width: $maxWidth + $sidePadding;
-    }
+    // @include xl {
+    //   max-width: withPx($maxWidth + $sidePadding);
+    // }
   }
 
   &-title {
@@ -76,10 +77,6 @@ ol {
   }
 }
 
-// .row > * {
-//   margin-top: 0;
-// }
-
 .text-muted {
   color: $grey;
 }
@@ -91,6 +88,10 @@ ol {
     width: auto;
     max-width: 100%;
   }
+}
+
+.menu {
+  flex: 0 1 420px;
 }
 
 .list {

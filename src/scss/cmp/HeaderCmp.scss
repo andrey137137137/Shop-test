@@ -1,0 +1,28 @@
+.header {
+  @include defaultPosition('absolute');
+  width: 100%;
+
+  &-wrapper {
+    @include defaultPosition('fixed');
+    width: 100%;
+    z-index: 50;
+  }
+
+  &-body {
+    align-items: center;
+    @include padding('5px *');
+    min-height: 125px;
+  }
+
+  &-main {
+    display: flex;
+    align-items: center;
+    flex: 0 0 toPercent(494, 1240);
+  }
+
+  &-logo {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: toPercent(29, 24);
+  }
+}

@@ -1,0 +1,11 @@
+@function withMeasure($value, $measure) {
+  @return unquote('#{$value}#{$measure}');
+}
+
+@function withPx($value) {
+  @return withMeasure($value, 'px');
+}
+
+@function toPercent($part, $all) {
+  @return $part/$all * 100%;
+}
