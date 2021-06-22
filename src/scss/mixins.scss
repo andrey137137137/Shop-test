@@ -110,8 +110,32 @@
   @include cssProp(position, $value);
 }
 
-@mixin defaultPosition($type) {
-  @include position('#{$type} 0 * * 0');
+@mixin transition($prop) {
+  transition: unquote($prop) $trsTime ease 0s;
+}
+
+@mixin transitionAll() {
+  @include transition('all');
+}
+
+@mixin positionTopLeft($type, $top: 0, $left: 0) {
+  @include position('#{$type} #{$top} * * #{$left}');
+}
+
+@mixin flexOn($alignItems: '', $justifyContent: '', $isWrap: '') {
+  display: flex;
+
+  @if ($alignItems) {
+    @include cssProp('align-items', $alignItems);
+  }
+
+  @if ($justifyContent) {
+    @include cssProp('justify-content', $justifyContent);
+  }
+
+  @if ($isWrap) {
+    @include cssProp('flex-wrap', $isWrap);
+  }
 }
 
 @mixin inlineFontSize($size, $height) {

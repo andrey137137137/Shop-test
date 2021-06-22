@@ -1,9 +1,9 @@
 .header {
-  @include defaultPosition('absolute');
+  @include positionTopLeft('absolute');
   width: 100%;
 
   &-wrapper {
-    @include defaultPosition('fixed');
+    @include positionTopLeft('fixed');
     width: 100%;
     z-index: 50;
   }
@@ -15,8 +15,7 @@
   }
 
   &-main {
-    display: flex;
-    align-items: center;
+    @include flexOn('center');
     flex: 0 0 toPercent(494, 1240);
   }
 
@@ -24,5 +23,87 @@
     font-weight: 700;
     font-size: 24px;
     line-height: toPercent(29, 24);
+    color: #000;
+  }
+
+  &-menu {
+    flex: 0 1 420px;
+
+    .menu {
+      $block: &;
+
+      &-list {
+        @include lg {
+          @include flexOn('', 'space-evenly', 'wrap');
+        }
+      }
+
+      &-item {
+        position: relative;
+        @include flexOn('center', 'space-between', 'wrap');
+        @include margin('* 3px');
+        @include padding('5px *');
+
+        @media (any-hover: hover) {
+          &:hover {
+            .menu-link,
+            .menu-arrow {
+              color: $orange;
+            }
+
+            .menu-arrow {
+              transform: rotate(180deg);
+            }
+
+            .menu-sub_list {
+              opacity: 1;
+              visibility: visible;
+              pointer-events: auto;
+              transform: translateY(0);
+            }
+          }
+        }
+      }
+
+      &-link {
+        font-weight: 500;
+        color: inherit;
+        @include transition('color');
+      }
+
+      &-arrow {
+        margin-left: 8px;
+        font-size: 8px;
+        @include transitionAll;
+      }
+
+      &-sub_list {
+        position: relative;
+        flex: 1 1 100%;
+        padding: 15px;
+        background-color: $orange;
+
+        @include md {
+          @include positionTopLeft('absolute', '100%');
+          min-width: 200px;
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+          transform: translateY(10px);
+          @include transitionAll;
+        }
+      }
+
+      &-sub_item {
+        &:not(:last-child) {
+          margin-bottom: 5px;
+        }
+      }
+
+      &-sub_link {
+        color: $white;
+        line-height: 120%;
+      }
+    }
   }
 }

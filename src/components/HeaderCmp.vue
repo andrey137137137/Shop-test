@@ -14,7 +14,7 @@ header.section.header
                     v-if='areSubItems(item.items)',
                     iconClass='arrow_down',
                     classes='menu-arrow'
-                  )
+                  ) ^
                   ul.menu-sub_list(v-if='areSubItems(item.items)')
                     li.menu-sub_item(v-for='i in item.items', :key='i')
                       LinkTag.menu-sub_link {{ getSubTitle(item.title, i) }}
