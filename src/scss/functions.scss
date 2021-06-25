@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @function withMeasure($value, $measure) {
   @return unquote('#{$value}#{$measure}');
 }
@@ -7,5 +9,6 @@
 }
 
 @function toPercent($part, $all) {
-  @return $part/$all * 100%;
+  // @return $part / $all * 100%;
+  @return math.div($part, $all) * 100%;
 }

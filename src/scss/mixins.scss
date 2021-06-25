@@ -29,6 +29,12 @@
   }
 }
 
+@mixin anyHover() {
+  @media (any-hover: hover) {
+    @content;
+  }
+}
+
 @mixin pixelPerfect($page: '', $top: 0) {
   #pixel_perfect {
     $img: '#{$page}.png';
