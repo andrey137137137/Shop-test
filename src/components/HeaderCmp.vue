@@ -17,7 +17,7 @@ header.section.header
                     v-if='areSubItems(item.items)',
                     iconClass='arrow_down',
                     classes='menu-arrow',
-                    @click.native='onClick(index)'
+                    ref='menuBtns'
                   ) ^
                   ul.menu-sub_list(v-if='areSubItems(item.items)')
                     li.menu-sub_item(v-for='i in item.items', :key='i')
@@ -78,30 +78,25 @@ export default {
           items: 0,
         },
       ],
-      clickedItem: -1,
+      selectedItems: [],
+      selectedItemsCount: 0,
     };
   },
   computed: {
     isPad() {
-      // if (
-      //   /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
-      //     navigator.userAgent,
-      //   )
-      // ) {
-      return true;
-      // }
+      if (
+        window.innerWidth > 768 &&
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+          navigator.userAgent,
+        )
+      ) {
+        return true;
+      }
 
-      // return false;
+      return false;
     },
   },
   methods: {
-    itemHoverClass(index) {
-      if (this.clickedItem == index) {
-        return 'menu-item--hover';
-      }
-
-      return '';
-    },
     areSubItems(items) {
       return items;
     },
@@ -109,18 +104,57 @@ export default {
       const title = parentTitle.substr(0, parentTitle.length - 1);
       return `${title} #${index}`;
     },
-    onClick(index) {
-      if (!this.isPad) {
-        this.clickedItem = -1;
-        return;
+    itemHoverClass(index) {
+      if (this.selectedItems[index]) {
+        return 'menu-item--hover';
       }
 
-      if (this.clickedItem == index) {
-        this.clickedItem = -1;
+      return '';
+    },
+    setSelectedItem(index) {
+      this.$set(this.selectedItems, index, !this.selectedItems[index]);
+
+      if (this.selectedItems[index]) {
+        this.selectedItemsCount++;
       } else {
-        this.clickedItem = index;
+        this.selectedItemsCount--;
+      }
+
+      if (this.selectedItemsCount < 0) {
+        this.selectedItemsCount = 0;
       }
     },
+    resetSelectedItems() {
+      if (this.selectedItemsCount > 0) {
+        this.selectedItems = this.selectedItems.map(() => false);
+        this.selectedItemsCount = 0;
+      }
+    },
+    onClick(e) {
+      if (!this.isPad) {
+        this.resetSelectedItems();
+      }
+
+      for (let index = 0; index < this.$refs.menuBtns.length; index++) {
+        if (e.target == this.$refs.menuBtns[index].$el) {
+          this.setSelectedItem(index);
+          return;
+        }
+      }
+
+      this.resetSelectedItems();
+    },
+  },
+  created() {
+    this.menuItems.forEach(() => {
+      this.selectedItems.push(false);
+    });
+  },
+  mounted() {
+    document.addEventListener('click', this.onClick);
+  },
+  beforeDestroy() {
+    document.removeEventListener('click', this.onClick);
   },
 };
 </script>

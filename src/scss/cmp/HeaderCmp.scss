@@ -9,6 +9,7 @@
   }
 
   &-body {
+    display: flex;
     align-items: center;
     @include padding('5px *');
     min-height: 125px;
@@ -33,7 +34,7 @@
       $block: '.menu';
 
       &-list {
-        @include lg {
+        @include md {
           @include flexOn('', 'space-evenly', 'wrap');
         }
       }
@@ -53,7 +54,7 @@
           }
 
           #{$block}-arrow {
-            transform: rotate(180deg);
+            transform: rotate(-180deg);
           }
 
           #{$block}-sub_list {
@@ -72,6 +73,8 @@
 
         @include md {
           &#{$elem}--hover {
+            // &.menu-item--hover {
+            color: red;
             @include touchStyles;
           }
         }
@@ -91,8 +94,8 @@
 
       &-sub_list {
         position: relative;
-        z-index: 1;
         flex: 1 1 100%;
+        // z-index: 1;
         padding: 15px;
         background-color: $orange;
 
@@ -114,14 +117,37 @@
       }
 
       &-sub_link {
-        color: $white;
         line-height: 120%;
+        color: $white;
       }
     }
   }
 
   &-search {
     max-width: 473px;
+
+    &-icon {
+      display: none;
+    }
+
+    &-item {
+      @include flexOn('center');
+      background-color: $white;
+    }
+
+    &-btn {
+      flex: 0 0 45px;
+      height: 45px;
+      font-size: 15px;
+      color: #333;
+    }
+
+    &-input {
+      padding-right: 20px;
+      width: 100%;
+      font-size: 14px;
+      color: $lightBlack;
+    }
 
     @include lg {
       flex: 1 1 auto;

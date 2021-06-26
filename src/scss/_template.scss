@@ -10,8 +10,10 @@
 }
 
 body {
-  font-family: $mainFonts;
   position: relative;
+  font-family: $mainFonts;
+  font-size: $fontSize;
+  color: $mainColor #f9f1e7;
 }
 
 a {
@@ -78,7 +80,7 @@ ol {
 }
 
 .text-muted {
-  color: $grey;
+  color: $gray;
 }
 
 .img_wrap {
@@ -110,7 +112,7 @@ ol {
         display: block;
         border-radius: 50%;
         size: 2px;
-        background-color: $darkBlack;
+        background-color: $lightBlack;
         content: '';
       }
     }
