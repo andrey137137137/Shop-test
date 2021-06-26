@@ -35,13 +35,13 @@ header.section.header
         .actions.header-actions
           LinkTag(
             iconClass='favorites',
-            classes='actions-item actions-favorites'
+            classes='actions-item actions-item--favorites'
           )
           .actions-item.cart
             LinkTag(iconClass='cart', classes='cart-icon')
             .cart-body
               ul.cart-list
-          LinkTag.actions-item.actions-item_user
+          LinkTag.actions-item.actions-item--user
             imgTag(src='img/avatar.jpg', alt='Avatar')
         BtnTag.icon_menu
           span(v-for='i in 3')

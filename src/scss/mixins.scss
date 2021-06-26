@@ -29,7 +29,7 @@
   }
 }
 
-@mixin anyHover() {
+@mixin anyHover {
   @media (any-hover: hover) {
     @content;
   }
@@ -120,7 +120,29 @@
   transition: unquote($prop) $trsTime ease 0s;
 }
 
-@mixin transitionAll() {
+@mixin adaptiveProp($prop, $smValue, $mdValue: '', $lgValue: '', $xlValue: '') {
+  #{$prop}: $smValue;
+
+  @if ($mdValue != '') {
+    @include md {
+      #{$prop}: $mdValue;
+    }
+  }
+
+  @if ($lgValue != '') {
+    @include lg {
+      #{$prop}: $lgValue;
+    }
+  }
+
+  @if ($xlValue != '') {
+    @include xl {
+      #{$prop}: $xlValue;
+    }
+  }
+}
+
+@mixin transitionAll {
   @include transition('all');
 }
 

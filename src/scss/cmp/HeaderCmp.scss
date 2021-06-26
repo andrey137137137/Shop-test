@@ -73,8 +73,6 @@
 
         @include md {
           &#{$elem}--hover {
-            // &.menu-item--hover {
-            color: red;
             @include touchStyles;
           }
         }
@@ -124,33 +122,129 @@
   }
 
   &-search {
-    max-width: 473px;
-
-    &-icon {
-      display: none;
-    }
-
-    &-item {
-      @include flexOn('center');
-      background-color: $white;
-    }
-
-    &-btn {
-      flex: 0 0 45px;
-      height: 45px;
-      font-size: 15px;
-      color: #333;
-    }
-
-    &-input {
-      padding-right: 20px;
-      width: 100%;
-      font-size: 14px;
-      color: $lightBlack;
-    }
+    @include adaptiveProp('padding-right', 1px, 15px, 32px);
 
     @include lg {
       flex: 1 1 auto;
+    }
+  }
+}
+
+.search_form {
+  $block: &;
+
+  max-width: 473px;
+
+  @mixin isVisible {
+    top: 100%;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &#{$block}-active {
+    #{$block}-item {
+      @include isVisible;
+    }
+
+    #{$block}-icon {
+      color: $orange;
+    }
+  }
+
+  &-icon {
+    position: relative;
+    z-index: 5;
+    font-size: 22px;
+    color: $blue;
+
+    @include lg {
+      display: none;
+    }
+  }
+
+  &-item {
+    @include positionTopLeft('absolute', -100%, 0);
+    z-index: 5;
+    @include flexOn('center');
+    width: 100%;
+    background-color: $white;
+    box-shadow: 0 0 5px rgba(212, 209, 205, 0.3);
+    visibility: hidden;
+    opacity: 0;
+    @include transitionAll;
+
+    @include lg {
+      position: static;
+      box-shadow: none;
+      @include isVisible;
+    }
+  }
+
+  &-btn {
+    flex: 0 0 45px;
+    height: 45px;
+    font-size: 15px;
+    color: #333;
+  }
+
+  &-input {
+    padding-right: 20px;
+    width: 100%;
+    font-size: 14px;
+    color: $lightBlack;
+  }
+}
+
+@mixin icon {
+  color: $blue;
+  font-size: 24px;
+  @include transition('color');
+  @include anyHover {
+    &:hover {
+      color: $orange;
+    }
+  }
+}
+
+.actions {
+  $block: &;
+
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
+  align-items: center;
+  @include adaptiveProp('gap', 1px, 15px, 32px);
+
+  &-item {
+    $elem: &;
+
+    &#{$elem}--favorites {
+      @include icon;
+    }
+
+    &#{$elem}--user {
+      border-radius: 50%;
+      overflow: hidden;
+      @include adaptiveProp('size', 1px, 30px, 40px);
+    }
+  }
+}
+
+.cart {
+  &-icon {
+    position: relative;
+    display: block;
+    @include icon;
+
+    span {
+      @include position('absolute -10px -10px * *');
+      @include flexOn('center', 'center');
+      border-radius: 50%;
+      size: 20px;
+      font-size: 12px;
+      color: $white $orange;
     }
   }
 }
