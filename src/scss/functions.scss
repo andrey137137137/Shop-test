@@ -12,3 +12,13 @@
   // @return $part / $all * 100%;
   @return math.div($part, $all) * 100%;
 }
+
+@function adaptiveValue($min, $max) {
+  $valueDiff: $max - $min;
+  $containerDiff: $maxWidth - $minWidth;
+
+  @return calc(
+    #{withPx($min)} + #{$valueDiff} *
+      ((100vw - #{withPx($minWidth)}) / #{$containerDiff})
+  );
+}

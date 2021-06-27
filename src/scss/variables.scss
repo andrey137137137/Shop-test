@@ -1,3 +1,5 @@
+$fontsPath: '~@/assets/fonts';
+
 $reserveFonts: Arial, Helvetica, sans-serif;
 // $reserveFonts: 'Times New Roman';
 $mainFonts: BlissPro, $reserveFonts;
@@ -25,10 +27,10 @@ $zMax: 100000000000000;
 $zSuper: 10000000;
 $zSuperSuper: 100000000;
 
-// $minWidth: 320;
-$minWidth: 0;
-// $maxWidth: 1440;
-$maxWidth: none;
+$minWidth: 320;
+// $minWidth: 0;
+$maxWidth: 1440;
+// $maxWidth: none;
 
 $mdWidth: 768;
 $lgWidth: 992;

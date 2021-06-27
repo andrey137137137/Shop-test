@@ -15,26 +15,26 @@ header.section.header
                   LinkTag.menu-link {{ item.title }}
                   BtnTag(
                     v-if='areSubItems(item.items)',
-                    iconClass='arrow_down',
+                    iconClass='ver_chevron',
                     classes='menu-arrow',
                     ref='menuBtns'
-                  ) ^
+                  )
                   ul.menu-sub_list(v-if='areSubItems(item.items)')
                     li.menu-sub_item(v-for='i in item.items', :key='i')
                       LinkTag.menu-sub_link {{ getSubTitle(item.title, i) }}
         .header-search
           .search_form
-            BtnTag(iconClass='search', classes='search_form-icon')
+            BtnTag(iconClass='loupe', classes='search_form-icon')
             form.search_form-item(action='#')
               BtnTag(
-                iconClass='search',
+                iconClass='loupe',
                 classes='search_form-btn',
                 type='submit'
               )
               input.search_form-input(autocomplete='off', type='text')
         .actions.header-actions
           LinkTag(
-            iconClass='favorites',
+            iconClass='heart',
             classes='actions-item actions-item--favorites'
           )
           .actions-item.cart
@@ -83,9 +83,8 @@ export default {
     };
   },
   computed: {
-    isPad() {
+    isGadget() {
       if (
-        window.innerWidth > 768 &&
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
           navigator.userAgent,
         )
@@ -99,6 +98,17 @@ export default {
   methods: {
     areSubItems(items) {
       return items;
+    },
+    isPad() {
+      if (
+        window.innerWidth >= 768 &&
+        window.innerWidth < 992 &&
+        this.isGadget
+      ) {
+        return true;
+      }
+
+      return false;
     },
     getSubTitle(parentTitle, index) {
       const title = parentTitle.substr(0, parentTitle.length - 1);
@@ -131,8 +141,9 @@ export default {
       }
     },
     onClick(e) {
-      if (!this.isPad) {
+      if (!this.isPad()) {
         this.resetSelectedItems();
+        return;
       }
 
       for (let index = 0; index < this.$refs.menuBtns.length; index++) {

@@ -5,6 +5,10 @@ body {
   color: $mainColor #f9f1e7;
 }
 
+.wrapper {
+  min-height: 100%;
+}
+
 .section {
   overflow: hidden;
 
@@ -15,22 +19,23 @@ body {
 
   &-container {
     $sidePadding: 15;
+    $doubleSidePadding: $sidePadding * 2;
 
     @include margin('* auto');
     @include padding('* #{$sidePadding}');
     min-width: withPx($minWidth);
-    max-width: withPx($mdWidth);
+    max-width: withPx($maxWidth);
 
     @include md {
-      max-width: withPx($lgWidth + $sidePadding);
+      max-width: withPx($lgWidth + $doubleSidePadding);
     }
 
     @include lg {
-      max-width: withPx($xlWidth + $sidePadding);
+      max-width: withPx($xlWidth + $doubleSidePadding);
     }
 
     // @include xl {
-    //   max-width: withPx($maxWidth + $sidePadding);
+    //   max-width: withPx($maxWidth + $doubleSidePadding);
     // }
   }
 
