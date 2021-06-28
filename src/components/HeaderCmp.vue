@@ -42,7 +42,7 @@ header.section.header
             .cart-body
               ul.cart-list
           LinkTag.actions-item.actions-item--user
-            imgTag(src='img/avatar.jpg', alt='Avatar')
+            imgTag(:src='require("@assets/logo.png")', alt='Avatar')
         BtnTag.icon_menu
           span(v-for='i in 3')
 </template>
