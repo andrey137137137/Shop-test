@@ -23,8 +23,12 @@ header.section.header
                     li.menu-sub_item(v-for='i in item.items', :key='i')
                       LinkTag.menu-sub_link {{ getSubTitle(item.title, i) }}
         .header-search
-          .search_form
-            BtnTag(iconClass='loupe', classes='search_form-icon')
+          .search_form(:class='searchFormActiveClass')
+            BtnTag(
+              iconClass='loupe',
+              classes='search_form-icon',
+              ref='searchFormToggle'
+            )
             form.search_form-item(action='#')
               BtnTag(
                 iconClass='loupe',
@@ -78,11 +82,20 @@ export default {
           items: 0,
         },
       ],
+      isToggledSearchForm: false,
       selectedItems: [],
       selectedItemsCount: 0,
     };
   },
   computed: {
+    searchFormActiveClass() {
+      return { 'search_form-active': this.isToggledSearchForm };
+    },
+  },
+  methods: {
+    areSubItems(items) {
+      return items;
+    },
     isGadget() {
       if (
         /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
@@ -94,16 +107,11 @@ export default {
 
       return false;
     },
-  },
-  methods: {
-    areSubItems(items) {
-      return items;
-    },
     isPad() {
       if (
-        window.innerWidth >= 768 &&
+        // window.innerWidth >= 768 &&
         window.innerWidth < 992 &&
-        this.isGadget
+        this.isGadget()
       ) {
         return true;
       }
@@ -115,13 +123,20 @@ export default {
       return `${title} #${index}`;
     },
     itemHoverClass(index) {
-      if (this.selectedItems[index]) {
-        return 'menu-item--hover';
+      return { 'menu-item--hover': this.selectedItems[index] };
+    },
+    resetSelectedItems() {
+      if (this.selectedItemsCount > 0) {
+        this.selectedItems = this.selectedItems.map(() => false);
+        this.selectedItemsCount = 0;
       }
-
-      return '';
+    },
+    resetAllActiveElems() {
+      this.isToggledSearchForm = false;
+      this.resetSelectedItems();
     },
     setSelectedItem(index) {
+      this.isToggledSearchForm = false;
       this.$set(this.selectedItems, index, !this.selectedItems[index]);
 
       if (this.selectedItems[index]) {
@@ -134,15 +149,18 @@ export default {
         this.selectedItemsCount = 0;
       }
     },
-    resetSelectedItems() {
-      if (this.selectedItemsCount > 0) {
-        this.selectedItems = this.selectedItems.map(() => false);
-        this.selectedItemsCount = 0;
-      }
+    toggleSearchForm() {
+      this.resetSelectedItems();
+      this.isToggledSearchForm = !this.isToggledSearchForm;
     },
     onClick(e) {
       if (!this.isPad()) {
-        this.resetSelectedItems();
+        this.resetAllActiveElems();
+        return;
+      }
+
+      if (e.target == this.$refs.searchFormToggle.$el) {
+        this.toggleSearchForm();
         return;
       }
 
@@ -153,7 +171,7 @@ export default {
         }
       }
 
-      this.resetSelectedItems();
+      this.resetAllActiveElems();
     },
   },
   created() {

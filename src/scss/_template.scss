@@ -26,15 +26,15 @@ body {
     min-width: withPx($minWidth);
     max-width: withPx($maxWidth);
 
-    @include md {
+    @include minMd {
       max-width: withPx($lgWidth + $doubleSidePadding);
     }
 
-    @include lg {
+    @include minLg {
       max-width: withPx($xlWidth + $doubleSidePadding);
     }
 
-    // @include xl {
+    // @include minXl {
     //   max-width: withPx($maxWidth + $doubleSidePadding);
     // }
   }

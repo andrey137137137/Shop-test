@@ -9,10 +9,19 @@
   }
 
   &-body {
+    position: relative;
     display: flex;
     align-items: center;
     @include padding('5px *');
-    min-height: 125px;
+    min-height: 50px;
+
+    @include minMd {
+      min-height: 80px;
+    }
+
+    @include minLg {
+      min-height: 125px;
+    }
   }
 
   &-main {
@@ -21,6 +30,8 @@
   }
 
   &-logo {
+    position: relative;
+    z-index: 5;
     font-weight: 700;
     font-size: 24px;
     line-height: toPercent(29, 24);
@@ -33,8 +44,19 @@
     .menu {
       $block: '.menu';
 
+      &-body {
+        @media (max-width: withPx($mdWidth)) {
+          @include positionTopLeft('fixed');
+          padding: 70px 15px 30px 15px;
+          size: 100%;
+          background-color: #fcf8f3;
+          overflow: auto;
+          @include transition('left');
+        }
+      }
+
       &-list {
-        @include md {
+        @include minMd {
           @include flexOn('', 'space-evenly', 'wrap');
         }
       }
@@ -71,23 +93,41 @@
           }
         }
 
-        @include md {
+        @include minMd {
           &#{$elem}--hover {
             @include touchStyles;
+          }
+        }
+
+        @include maxMd {
+          @include margin('* 0 15px');
+
+          &:last-child {
+            margin-bottom: 0;
           }
         }
       }
 
       &-link {
         font-weight: 500;
+        font-size: 24px;
         color: inherit;
         @include transition('color');
+
+        @include maxMd {
+          font-size: 24px;
+          font-weight: 600;
+        }
       }
 
       &-arrow {
         margin-left: 8px;
         font-size: 8px;
         @include transitionAll;
+
+        @include maxMd {
+          font-size: 14px;
+        }
       }
 
       &-sub_list {
@@ -97,7 +137,7 @@
         padding: 15px;
         background-color: $orange;
 
-        @include md {
+        @include minMd {
           @include positionTopLeft('absolute', '100%');
           min-width: 200px;
           opacity: 0;
@@ -106,17 +146,35 @@
           transform: translateY(10px);
           @include transitionAll;
         }
+
+        @include maxMd {
+          @include margin('10px -15px *');
+        }
       }
 
       &-sub_item {
         &:not(:last-child) {
           margin-bottom: 5px;
         }
+
+        @include maxMd {
+          margin-bottom: 10px;
+        }
       }
 
       &-sub_link {
         line-height: 120%;
         color: $white;
+
+        @include anyHover {
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        @include maxMd {
+          font-size: 18px;
+        }
       }
     }
   }
@@ -124,7 +182,7 @@
   &-search {
     @include adaptiveProp('padding-right', 15, 32, 'max');
 
-    @include lg {
+    @include minLg {
       flex: 1 1 auto;
     }
   }
@@ -157,7 +215,7 @@
     font-size: 22px;
     color: $blue;
 
-    @include lg {
+    @include minLg {
       display: none;
     }
   }

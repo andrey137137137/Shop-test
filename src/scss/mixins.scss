@@ -1,30 +1,47 @@
-@mixin breakpoint($value) {
+@mixin breakpoint($value, $mediaType: 'min') {
   $breakpoints: (
     'md': withPx($mdWidth),
     'lg': withPx($lgWidth),
     'xl': withPx($xlWidth),
   );
 
-  // @media only screen and (min-width: map-get($breakpoints, $value)) {
-  @media (min-width: map-get($breakpoints, $value)) {
+  @media (#{$mediaType}-width: map-get($breakpoints, $value)) {
     @content;
   }
 }
 
-@mixin md {
+@mixin minMd {
   @include breakpoint('md') {
     @content;
   }
 }
 
-@mixin lg {
+@mixin minLg {
   @include breakpoint('lg') {
     @content;
   }
 }
 
-@mixin xl {
+@mixin minXl {
   @include breakpoint('xl') {
+    @content;
+  }
+}
+
+@mixin maxMd {
+  @include breakpoint('md', 'max') {
+    @content;
+  }
+}
+
+@mixin maxLg {
+  @include breakpoint('lg', 'max') {
+    @content;
+  }
+}
+
+@mixin maxXl {
+  @include breakpoint('xl', 'max') {
     @content;
   }
 }
