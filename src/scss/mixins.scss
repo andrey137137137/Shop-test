@@ -140,18 +140,36 @@
   @include position('#{$type} #{$top} * * #{$left}');
 }
 
+@mixin positionWithFullWidth($type, $width, $height: '') {
+  @include positionTopLeft($type, $top: 0, $left: 0);
+
+  @if $height == '' {
+    width: $width;
+  } @else {
+    @include size('#{$width} #{$height}');
+  }
+}
+
+@mixin fixedElem($height: '') {
+  @include positionWithFullWidth(fixed, 100%, $height);
+}
+
+@mixin absoluteElem($height: '') {
+  @include positionWithFullWidth(absolute, 100%, $height);
+}
+
 @mixin flexOn($alignItems: '', $justifyContent: '', $isWrap: '') {
   display: flex;
 
-  @if ($alignItems) {
+  @if $alignItems {
     @include cssProp('align-items', $alignItems);
   }
 
-  @if ($justifyContent) {
+  @if $justifyContent {
     @include cssProp('justify-content', $justifyContent);
   }
 
-  @if ($isWrap) {
+  @if $isWrap {
     @include cssProp('flex-wrap', $isWrap);
   }
 }

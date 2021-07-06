@@ -1,17 +1,22 @@
 .header {
-  @include positionTopLeft('absolute');
-  width: 100%;
+  @include absoluteElem;
 
   &-wrapper {
-    @include positionTopLeft('fixed');
-    width: 100%;
+    @include fixedElem;
     z-index: 50;
+
+    &:before {
+      @include absoluteElem(100%);
+      z-index: 3;
+      background-color: #5e5373;
+      content: '';
+    }
   }
 
   &-body {
     position: relative;
-    display: flex;
-    align-items: center;
+    // @include flexOn(center);
+    @include flexOn(center, space-between);
     @include padding('5px *');
     min-height: 50px;
 
@@ -45,10 +50,9 @@
       $block: '.menu';
 
       &-body {
-        @media (max-width: withPx($mdWidth)) {
-          @include positionTopLeft('fixed');
+        @include maxMd {
+          @include fixedElem(100%);
           padding: 70px 15px 30px 15px;
-          size: 100%;
           background-color: #fcf8f3;
           overflow: auto;
           @include transition('left');
@@ -69,7 +73,7 @@
         @include margin('* 3px');
         @include padding('5px *');
 
-        @mixin touchStyles() {
+        @mixin touchStyles {
           #{$block}-link,
           #{$block}-arrow {
             color: $orange;
@@ -175,6 +179,41 @@
         @include maxMd {
           font-size: 18px;
         }
+      }
+    }
+  }
+
+  &-burger {
+    display: none;
+
+    @include maxMd {
+      position: relative;
+      size: 30px 20px;
+      display: block;
+
+      @mixin line {
+        position: absolute;
+        left: 0;
+        size: 100% 2px;
+        background-color: $white;
+      }
+
+      &:before,
+      &:after,
+      & span {
+        @include line;
+      }
+
+      & span {
+        top: 9px;
+      }
+
+      &:before {
+        top: 0;
+      }
+
+      &:after {
+        bottom: 0;
       }
     }
   }
