@@ -140,22 +140,25 @@
   @include position('#{$type} #{$top} * * #{$left}');
 }
 
-@mixin positionWithFullWidth($type, $width, $height: '') {
-  @include positionTopLeft($type, $top: 0, $left: 0);
-
-  @if $height == '' {
-    width: $width;
-  } @else {
-    @include size('#{$width} #{$height}');
-  }
+@mixin positionWithSize($type, $width, $height, $left, $top) {
+  @include positionTopLeft($type, $top, $left);
+  @include size('#{$width} #{$height}');
 }
 
-@mixin fixedElem($height: '') {
-  @include positionWithFullWidth(fixed, 100%, $height);
+@mixin fixedElem($width, $height: '*', $left: 0, $top: 0) {
+  @include positionWithSize(fixed, $width, $height, $left, $top);
 }
 
-@mixin absoluteElem($height: '') {
-  @include positionWithFullWidth(absolute, 100%, $height);
+@mixin absoluteElem($width, $height: '*', $left: 0, $top: 0) {
+  @include positionWithSize(absolute, $width, $height, $left, $top);
+}
+
+@mixin fixedWidestElem($height: '*', $left: 0, $top: 0) {
+  @include fixedElem(100%, $height, $left, $top);
+}
+
+@mixin absoluteWidestElem($height: '*', $left: 0, $top: 0) {
+  @include absoluteElem(100%, $height, $left, $top);
 }
 
 @mixin flexOn($alignItems: '', $justifyContent: '', $isWrap: '') {
