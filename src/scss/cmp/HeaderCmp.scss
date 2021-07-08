@@ -224,7 +224,7 @@
       display: block;
       height: 18px;
       cursor: pointer;
-      @include adaptiveProp(margin-left, 15, 32, 'max');
+      @include adaptiveProp('margin-left', 15, 32, 'max');
 
       span {
         @include absoluteWidestElem(2px, 0, $middleTop);
