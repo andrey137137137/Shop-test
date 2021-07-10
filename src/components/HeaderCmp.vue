@@ -7,21 +7,7 @@ header.section.header
           LinkTag.header-logo Funiro.
           .menu.header-menu
             nav.menu-body(:class='menuActiveClass')
-              ul.menu-list
-                li.menu-item(
-                  v-for='(item, index) in menuItems',
-                  :class='itemHoverClass(index)'
-                )
-                  LinkTag.menu-link {{ item.title }}
-                  BtnTag(
-                    v-if='areSubItems(item.items)',
-                    iconClass='ver_chevron',
-                    classes='menu-arrow',
-                    ref='menuBtns'
-                  )
-                  ul.menu-sub_list(v-if='areSubItems(item.items)')
-                    li.menu-sub_item(v-for='i in item.items', :key='i')
-                      LinkTag.menu-sub_link {{ getSubTitle(item.title, i) }}
+              MenuList(ref='menuBody')
         .header-search
           SearchForm
         .actions.header-actions
@@ -34,17 +20,18 @@ header.section.header
             .cart-body
               ul.cart-list
           LinkTag.actions-item.actions-item--user
-            imgTag(:src='require("@assets/logo.png")', alt='Avatar')
-        BtnTag.header-burger(:class='burgerActiveClass')
-          span(v-for='i in 3')
+            ImgTag(:src='require("@assets/logo.png")', alt='Avatar')
+        BtnTag.header-burger(:class='burgerActiveClass', ref='burger')
+          span(v-for='i in 3', ref='burgerLines')
 </template>
 
 <script>
 import clickAwayMixin from '@mxn/clickAwayMixin';
-import LinkTag from '@tags/LinkTag.vue';
-import BtnTag from '@tags/BtnTag.vue';
-import imgTag from '@tags/imgTag.vue';
-import SearchForm from '@cmp/SearchForm.vue';
+import LinkTag from '@tags/LinkTag';
+import BtnTag from '@tags/BtnTag';
+import ImgTag from '@tags/ImgTag';
+import MenuList from '@cmp/MenuList';
+import SearchForm from '@cmp/SearchForm';
 
 export default {
   name: 'HeaderCmp',
@@ -52,87 +39,56 @@ export default {
   components: {
     LinkTag,
     BtnTag,
-    imgTag,
+    ImgTag,
+    MenuList,
     SearchForm,
   },
   data() {
     return {
-      menuItems: [
-        {
-          title: 'Products',
-          link: '',
-          items: 4,
-        },
-        {
-          title: 'Rooms',
-          link: '',
-          items: 4,
-        },
-        {
-          title: 'Inspirations',
-          link: '',
-          items: 0,
-        },
-      ],
-      isToggledMenu: false,
-      selectedItems: [],
-      selectedItemsCount: 0,
+      isToggled: false,
     };
   },
   computed: {
     menuActiveClass() {
-      return { 'menu-body--active': this.isToggledMenu };
+      return { 'menu-body--active': this.isToggled };
     },
     burgerActiveClass() {
-      return { 'header-burger--active': this.isToggledMenu };
+      return { 'header-burger--active': this.isToggled };
     },
   },
   methods: {
-    areSubItems(items) {
-      return items;
-    },
-    getSubTitle(parentTitle, index) {
-      const title = parentTitle.substr(0, parentTitle.length - 1);
-      return `${title} #${index}`;
-    },
-    itemHoverClass(index) {
-      return { 'menu-item--hover': this.selectedItems[index] };
-    },
     reset() {
-      if (this.selectedItemsCount > 0) {
-        this.selectedItems = this.selectedItems.map(() => false);
-        this.selectedItemsCount = 0;
-      }
+      this.isToggled = false;
     },
-    setSelectedItem(index) {
-      this.isToggledSearchForm = false;
-      this.$set(this.selectedItems, index, !this.selectedItems[index]);
-
-      if (this.selectedItems[index]) {
-        this.selectedItemsCount++;
-      } else {
-        this.selectedItemsCount--;
+    toggle() {
+      this.isToggled = !this.isToggled;
+    },
+    isClickedParent(target) {
+      if (target == this.$refs.menuBody.$el) {
+        return true;
       }
 
-      if (this.selectedItemsCount < 0) {
-        this.selectedItemsCount = 0;
-      }
+      return false;
     },
-    handle(target) {
-      for (let index = 0; index < this.$refs.menuBtns.length; index++) {
-        if (target == this.$refs.menuBtns[index].$el) {
-          this.setSelectedItem(index);
+    clickAwayHandle(target) {
+      if (this.checkChildren(target, 5)) {
+        return true;
+      }
+
+      if (target == this.$refs.burger.$el) {
+        this.toggle();
+        return true;
+      }
+
+      for (let index = 0; index < this.$refs.burgerLines.length; index++) {
+        if (target == this.$refs.burgerLines[index]) {
+          this.toggle();
           return true;
         }
       }
 
       return false;
     },
-  },
-  created() {
-    this.menuItems.forEach(() => {
-      this.selectedItems.push(false);
-    });
   },
 };
 </script>

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import HeaderCmp from '@cmp/HeaderCmp.vue';
+import HeaderCmp from '@cmp/HeaderCmp';
 
 export default {
   name: 'App',

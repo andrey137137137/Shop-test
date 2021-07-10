@@ -1,18 +1,11 @@
 <template lang='pug'>
 .search_form(:class='activeClass')
-  BtnTag(iconClass='loupe', classes='search_form-icon', ref='searchFormToggle')
-  form.search_form-item(action='#')
-    BtnTag(
-      iconClass='loupe',
-      classes='search_form-btn',
-      type='submit',
-      ref='searchFormBtn'
-    )
-    input.search_form-input(
-      autocomplete='off',
-      type='text',
-      ref='searchFormInput'
-    )
+  BtnTag(iconClass='loupe', classes='search_form-icon', ref='toggle')
+  form.search_form-item(action='#', ref='searchForm')
+    BtnTag(iconClass='loupe', classes='search_form-btn')
+    input.search_form-input(autocomplete='off', type='text')
+    //- style='line-height: 50px',
+    //- type='submit',
 </template>
 
 <script>
@@ -42,15 +35,19 @@ export default {
     toggle() {
       this.isToggled = !this.isToggled;
     },
-    handle(target) {
-      if (
-        target == this.$refs.searchFormBtn.$el ||
-        target == this.$refs.searchFormInput.$el
-      ) {
+    isClickedParent(target) {
+      if (target == this.$refs.searchForm) {
         return true;
       }
 
-      if (target == this.$refs.searchFormToggle.$el) {
+      return false;
+    },
+    clickAwayHandle(target) {
+      if (this.checkChildren(target, 1)) {
+        return true;
+      }
+
+      if (target == this.$refs.toggle.$el) {
         this.toggle();
         return true;
       }

@@ -4,8 +4,29 @@ export default {
   mixins: [isGadgetMixin],
   methods: {
     reset() {},
-    handle(target) {
-      console.log(target);
+    clickAwayHandle(target) {
+      console.log('NOT OVERRIDE HANDLE FOR: ' + target);
+      return false;
+    },
+    isClickedParent(target) {
+      console.log('NOT OVERRIDE PARENT FOR: ' + target);
+      return false;
+    },
+    checkChildren(target, deep) {
+      for (
+        let curDeep = 0, child = target;
+        curDeep <= deep;
+        curDeep++, child = child.parentNode
+      ) {
+        if (!child) {
+          return false;
+        }
+
+        if (this.isClickedParent(child)) {
+          return true;
+        }
+      }
+
       return false;
     },
     onClick(e) {
@@ -16,7 +37,7 @@ export default {
 
       console.log(e.target);
 
-      if (this.handle(e.target)) {
+      if (this.clickAwayHandle(e.target)) {
         return;
       }
 

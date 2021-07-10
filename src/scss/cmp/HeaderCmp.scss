@@ -43,8 +43,9 @@
       $rotateArrow: rotate(-180deg);
 
       &-body {
+        $elem: #{$block}-body;
+
         @include maxMd {
-          $elem: &;
           $bgColor: #fcf8f3;
           $left: -100%;
           // $left: 0;

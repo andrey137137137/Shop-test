@@ -6,7 +6,7 @@ img(:class='compClasses', :src='src', :alt='alt')
 import addClassesMixin from '@mxn/addClassesMixin';
 
 export default {
-  name: 'imgTag',
+  name: 'ImgTag',
   mixins: [addClassesMixin],
   props: {
     src: { type: String, default: '' },
