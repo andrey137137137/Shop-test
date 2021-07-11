@@ -1,12 +1,16 @@
 body {
   position: relative;
-  font-family: $mainFonts;
-  font-size: $mainFontSize;
   color: $mainColor #f9f1e7;
 }
 
 .wrapper {
-  min-height: 100%;
+	width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	// &._loaded {
+	// }
 }
 
 .section {
@@ -23,7 +27,7 @@ body {
 
     @include margin('* auto');
     @include padding('* #{$sidePadding}');
-    min-width: withPx($minWidth);
+    // min-width: withPx($minWidth);
     max-width: withPx($maxWidth);
 
     @include minMd {

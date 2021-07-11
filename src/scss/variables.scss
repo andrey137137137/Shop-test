@@ -2,8 +2,10 @@ $fontsPath: '~@/assets/fonts';
 
 $reserveFonts: Arial, Helvetica, sans-serif;
 // $reserveFonts: 'Times New Roman';
-$mainFonts: BlissPro, $reserveFonts;
+$mainFonts: Gilroy, $reserveFonts;
 $subTitleFonts: 'BlissPro-ExtraBold', $mainFonts;
+
+$mainFontSize: 16px;
 
 $trsTime: 0.5s;
 
@@ -11,6 +13,7 @@ $white: #fff;
 $darkWhite: #f4f5f7;
 
 $gray: #898989;
+$darkGray: #616161;
 
 $lightBlack: #3a3a3a;
 $black: #000;
@@ -20,7 +23,6 @@ $orange: #e89f71;
 $green: #2ec1ac;
 $blue: #262f56;
 
-$mainFontSize: 16px;
 $mainColor: $lightBlack;
 
 $zMax: 100000000000000;

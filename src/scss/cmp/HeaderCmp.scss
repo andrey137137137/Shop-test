@@ -1,29 +1,59 @@
 .header {
+  $block: &;
+
   @include absoluteWidestElem;
+	min-height: 40px;
+
+	@media (max-width: $md3+px) {
+		min-height: 5px;
+	}
+
+	&#{$block}--scroll {
+		#{$block}-wrapper {
+			background-color: rgba(255, 255, 255, 0.8);
+			@media (any-hover: hover) {
+				&:hover {
+					background-color: rgba(255, 255, 255, 0.9);
+				}
+			}
+		}
+		#{$block}-body {
+			min-height: 50px;
+			@media (min-width: $md2+px) {
+				min-height: 70px;
+			}
+		}
+	}
 
   &-wrapper {
     @include fixedWidestElem;
     z-index: 50;
+    @include transition('background-color');
   }
 
   &-body {
     position: relative;
-    @include flexOn(center, space-between);
+    @include flexOn(center);
     @include padding('5px *');
-    min-height: 50px;
+    min-height: 125px;
+    @include transition('min-height');
 
-    @include minMd {
-      min-height: 80px;
+    @include maxMd {
+      min-height: 50px;
     }
 
-    @include minLg {
-      min-height: 125px;
-    }
+		@media (max-width: $md3+px) {
+			min-height: 50px;
+		}
   }
 
   &-main {
     @include flexOn('center');
     flex: 0 0 toPercent(494, 1240);
+    
+		@media (max-width: $md2+px) {
+			flex: 1 1 auto;
+		}
   }
 
   &-logo {
@@ -32,7 +62,7 @@
     font-weight: 700;
     font-size: 24px;
     line-height: toPercent(29, 24);
-    color: #000;
+    color: $black;
   }
 
   &-menu {
