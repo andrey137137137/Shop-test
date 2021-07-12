@@ -1,28 +1,42 @@
-<template lang='pug'>
-header.section.header
-  .header-wrapper
-    .section-container.header-container
-      .section-body.header-body
-        .header-main
-          LinkTag.header-logo Funiro.
-          .menu.header-menu
-            nav.menu-body(:class='menuActiveClass')
-              MenuList(ref='menuBody')
-        .header-search
-          SearchForm
-        .actions.header-actions
-          LinkTag(
-            iconClass='heart',
-            classes='actions-item actions-item--favorites'
-          )
-          .actions-item.cart
-            LinkTag(iconClass='cart', classes='cart-icon')
-            .cart-body
-              ul.cart-list
-          LinkTag.actions-item.actions-item--user
-            ImgTag(:src='require("@assets/logo.png")', alt='Avatar')
-        BtnTag.header-burger(:class='burgerActiveClass', ref='burger')
-          span(v-for='i in 3', ref='burgerLines')
+<template lang='html'>
+  <header class="header">
+    <div class="header__wrapper">
+      <div class="header__container section-container">
+        <div class="header__body">
+          <div class="header__main">
+            <LinkTag class="header__logo"> Funiro.</LinkTag>
+            <div class="header__menu menu">
+              <nav class="menu__body" :class="menuActiveClass">
+                <MenuList ref="menuBody" />
+              </nav>
+            </div>
+          </div>
+          <div class="header__search">
+            <SearchForm />
+          </div>
+          <div class="header__actions actions-header">
+            <LinkTag
+              iconClass="heart"
+              classes="actions-header__item actions-header__item_favorites"
+            >
+            </LinkTag>
+            <div class="actions-header__item cart-header">
+              <LinkTag iconClass="cart" classes="cart-header__icon"></LinkTag>
+              <div class="cart-header__body">
+                <ul class="cart-header__list cart-list"></ul>
+              </div>
+            </div>
+            <LinkTag class="actions-header__item actions-header__item_user _ibg">
+              <ImgTag alt="Avatar" :src="require('@assets/logo.png')" />
+            </LinkTag>
+          </div>
+          <BtnTag class="icon-menu" :class="burgerActiveClass" ref="burger">
+            <span v-for="i in 3" :key="i" ref="burgerLines"></span>
+          </BtnTag>
+        </div>
+      </div>
+    </div>
+  </header>
 </template>
 
 <script>

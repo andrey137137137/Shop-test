@@ -1,8 +1,10 @@
-<template lang='pug'>
-#app
-  .wrapper
-    HeaderCmp
-    .page
+<template>
+  <div id="app">
+    <div class="wrapper">
+      <HeaderCmp />
+      <div class="page"></div>
+    </div>
+  </div>
 </template>
 
 <script>

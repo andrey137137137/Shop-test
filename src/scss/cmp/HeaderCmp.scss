@@ -2,317 +2,303 @@
   $block: &;
 
   @include absoluteWidestElem;
-	min-height: 40px;
+  min-height: 40px;
 
-	@media (max-width: $md3+px) {
-		min-height: 5px;
-	}
-
-	&#{$block}--scroll {
-		#{$block}-wrapper {
-			background-color: rgba(255, 255, 255, 0.8);
-			@media (any-hover: hover) {
-				&:hover {
-					background-color: rgba(255, 255, 255, 0.9);
-				}
-			}
-		}
-		#{$block}-body {
-			min-height: 50px;
-			@media (min-width: $md2+px) {
-				min-height: 70px;
-			}
-		}
-	}
-
-  &-wrapper {
-    @include fixedWidestElem;
-    z-index: 50;
-    @include transition('background-color');
+  @include maxMd {
+    min-height: 5px;
   }
 
-  &-body {
-    position: relative;
+  // &#{$block}--scroll {
+  &._scroll {
+    //   #{$block}-wrapper {
+    .header__wrapper {
+      background-color: rgba(255, 255, 255, 0.8);
+
+      @include anyHover {
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.9);
+        }
+      }
+    }
+
+    // #{$block}-body {
+    .header__body {
+      min-height: 50px;
+
+      @include minLg {
+        min-height: 70px;
+      }
+    }
+  }
+
+  // &-wrapper {
+  &__wrapper {
+    @include transition('background-color');
+    @include fixedWidestElem;
+    z-index: 50;
+  }
+
+  // &-body {
+  &__body {
+    @include transition('min-height');
     @include flexOn(center);
     @include padding('5px *');
     min-height: 125px;
-    @include transition('min-height');
+    position: relative;
+
+    @include maxLg {
+      min-height: 80px;
+    }
 
     @include maxMd {
       min-height: 50px;
     }
-
-		@media (max-width: $md3+px) {
-			min-height: 50px;
-		}
   }
 
-  &-main {
+  // &-main {
+  &__main {
     @include flexOn('center');
     flex: 0 0 toPercent(494, 1240);
-    
-		@media (max-width: $md2+px) {
-			flex: 1 1 auto;
-		}
-  }
 
-  &-logo {
-    position: relative;
-    z-index: 5;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: toPercent(29, 24);
-    color: $black;
-  }
-
-  &-menu {
-    flex: 0 1 420px;
-
-    .menu {
-      $block: '.menu';
-      $rotateArrow: rotate(-180deg);
-
-      &-body {
-        $elem: #{$block}-body;
-
-        @include maxMd {
-          $bgColor: #fcf8f3;
-          $left: -100%;
-          // $left: 0;
-
-          @include fixedWidestElem(100%, $left);
-          padding: 70px 15px 30px 15px;
-          background-color: $bgColor;
-          overflow: auto;
-          @include transition('left');
-
-          &:before {
-            @include fixedWidestElem(50px, $left);
-            z-index: 2;
-            background-color: $bgColor;
-            @include transition('left');
-            content: '';
-          }
-
-          &#{$elem}--active {
-            left: 0;
-
-            &:before {
-              left: 0;
-            }
-          }
-        }
-      }
-
-      &-list {
-        @include minMd {
-          @include flexOn('', 'space-evenly', 'wrap');
-        }
-      }
-
-      &-item {
-        $elem: #{$block}-item;
-
-        position: relative;
-        @include flexOn('center', 'space-between', 'wrap');
-        @include margin('* 3px');
-        @include padding('5px *');
-
-        @mixin touchStyles {
-          #{$block}-link,
-          #{$block}-arrow {
-            color: $orange;
-          }
-
-          #{$block}-arrow {
-            transform: $rotateArrow;
-          }
-
-          #{$block}-sub_list {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transform: translateY(0);
-          }
-        }
-
-        @include anyHover {
-          &:hover {
-            @include touchStyles;
-          }
-        }
-
-        @include minMd {
-          &#{$elem}--hover {
-            @include touchStyles;
-          }
-        }
-
-        @include maxMd {
-          @include margin('* 0 15px');
-
-          &:last-child {
-            margin-bottom: 0;
-          }
-        }
-      }
-
-      &-link {
-        font-weight: 500;
-        // font-size: 24px;
-        color: inherit;
-        @include transition('color');
-
-        @include maxMd {
-          font-size: 24px;
-          font-weight: 600;
-        }
-      }
-
-      &-arrow {
-        $elem: &;
-
-        margin-left: 8px;
-        font-size: 8px;
-        @include transitionAll;
-
-        @include maxMd {
-          font-size: 14px;
-        }
-
-        &#{$elem}--active {
-          transform: $rotateArrow;
-        }
-      }
-
-      &-sub_list {
-        position: relative;
-        flex: 1 1 100%;
-        z-index: 5;
-        padding: 15px;
-        background-color: $orange;
-
-        @include minMd {
-          @include positionTopLeft('absolute', '100%');
-          min-width: 200px;
-          opacity: 0;
-          visibility: hidden;
-          pointer-events: none;
-          transform: translateY(10px);
-          @include transitionAll;
-        }
-
-        @include maxMd {
-          @include margin('10px -15px *');
-        }
-      }
-
-      &-sub_item {
-        &:not(:last-child) {
-          margin-bottom: 5px;
-        }
-
-        @include maxMd {
-          margin-bottom: 10px;
-        }
-      }
-
-      &-sub_link {
-        line-height: 120%;
-        color: $white;
-
-        @include anyHover {
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-
-        @include maxMd {
-          font-size: 18px;
-        }
-      }
+    @include maxLg {
+      flex: 1 1 auto;
     }
   }
 
-  &-search {
+  // &-logo {
+  &__logo {
+    color: $black;
+    font-weight: 700;
+    font-size: 24px;
+    position: relative;
+    z-index: 5;
+    line-height: toPercent(29, 24);
+  }
+
+  // &-menu {
+  // }
+
+  // &-search {
+  &__search {
     @include adaptiveProp('padding-right', 15, 32, 'max');
 
     @include minLg {
       flex: 1 1 auto;
     }
   }
+}
 
-  &-burger {
-    display: none;
+.menu {
+  $block: '.menu';
+  $rotateArrow: rotate(-180deg);
+
+  flex: 0 1 420px;
+
+  // &-body {
+  &__body {
+    $elem: #{$block}-body;
 
     @include maxMd {
-      $block: &;
-      $middleTop: calc(50% - 1px);
+      $bgColor: #fcf8f3;
+      $left: -100%;
+      // $left: 0;
 
-      position: relative;
+      @include fixedWidestElem(100%, $left);
+      overflow: auto;
+      background-color: $bgColor;
+      @include transition('left');
+      padding: 70px 15px 30px 15px;
+
+      &:before {
+        content: '';
+        @include fixedWidestElem(50px, $left);
+        @include transition('left');
+        background-color: $bgColor;
+        z-index: 2;
+      }
+
+      // &#{$elem}--active {
+      &._active {
+        left: 0;
+
+        &:before {
+          left: 0;
+        }
+      }
+    }
+  }
+
+  // &-list {
+  &__list {
+    @include minMd {
+      @include flexOn('', 'space-evenly', 'wrap');
+    }
+  }
+
+  // &-item {
+  &__item {
+    $elem: #{$block}-item;
+
+    @include flexOn('center', 'space-between', 'wrap');
+    @include margin('* 3px');
+    @include padding('5px *');
+    position: relative;
+
+    @mixin touchStyles {
+      // #{$block}-sub_list {
+      .menu__sub-list {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      // #{$block}-arrow {
+      .menu__arrow {
+        transform: $rotateArrow;
+      }
+
+      // #{$block}-link,
+      // #{$block}-arrow {
+      .menu__arrow,
+      .menu__link {
+        color: $orange;
+      }
+    }
+
+    @include anyHover {
+      &:hover {
+        @include touchStyles;
+      }
+    }
+
+    @include minMd {
+      // &#{$elem}--hover {
+      &._hover {
+        @include touchStyles;
+      }
+    }
+
+    @include maxMd {
+      @include margin('* 0 15px');
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // &-link {
+  &__link {
+    font-weight: 500;
+    color: inherit;
+    @include transition('color');
+
+    @include maxMd {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+
+  // &-arrow {
+  &__arrow {
+    $elem: &;
+
+    margin-left: 8px;
+    @include transitionAll;
+    font-size: 8px;
+
+    @include maxMd {
+      font-size: 14px;
+
+      // &#{$elem}--active {
+      &._active {
+        transform: $rotateArrow;
+      }
+    }
+  }
+
+  // &-sub_list {
+  &__sub-list {
+    position: relative;
+    background-color: $orange;
+    padding: 15px;
+    flex: 1 1 100%;
+
+    @include minMd {
+      opacity: 0;
+      @include transitionAll;
+      transform: translateY(10px);
+      visibility: hidden;
+      min-width: 200px;
+      pointer-events: none;
+      @include positionTopLeft('absolute', '100%');
       z-index: 5;
-      flex: 0 0 30px;
-      display: block;
-      height: 18px;
-      cursor: pointer;
-      @include adaptiveProp('margin-left', 15, 32, 'max');
+    }
 
-      span {
-        @include absoluteWidestElem(2px, 0, $middleTop);
-        background-color: $black;
-        @include transitionAll;
+    @include maxMd {
+      @include margin('10px -15px *');
+    }
+  }
 
-        &:first-child {
-          top: 0;
-        }
+  // &-sub_item {
+  &__sub-item {
+    &:not(:last-child) {
+      margin-bottom: 5px;
 
-        &:last-child {
-          top: auto;
-          bottom: 0;
-        }
+      @include maxMd {
+        margin-bottom: 10px;
       }
+    }
+  }
 
-      &#{$block}--active {
-        span {
-          transform: scale(0);
+  // &-sub_link {
+  &__sub-link {
+    color: $white;
+    line-height: 120%;
 
-          &:first-child {
-            transform: rotate(-45deg);
-            top: $middleTop;
-          }
-
-          &:last-child {
-            transform: rotate(45deg);
-            bottom: $middleTop;
-          }
-        }
+    @include anyHover {
+      &:hover {
+        text-decoration: underline;
       }
+    }
+
+    @include maxMd {
+      font-size: 18px;
     }
   }
 }
 
-.search_form {
+// .search_form {
+.search-form {
   $block: &;
 
   max-width: 473px;
 
-  @mixin isVisible {
-    top: 100%;
-    visibility: visible;
-    opacity: 1;
-  }
+  // @mixin isVisible {
+  //   opacity: 1;
+  //   top: 100%;
+  //   visibility: visible;
+  // }
 
-  &#{$block}--active {
-    #{$block}-item {
-      @include isVisible;
+  // &#{$block}--active {
+  &._active {
+    // #{$block}-item {
+    .search-form__item {
+      // @include isVisible;
+      opacity: 1;
+      top: 100%;
+      visibility: visible;
     }
 
-    #{$block}-icon {
+    // #{$block}-icon {
+    .search-form__icon {
       color: $orange;
     }
   }
 
-  &-icon {
+  // &-icon {
+  &__icon {
     position: relative;
     z-index: 5;
     font-size: 22px;
@@ -323,32 +309,35 @@
     }
   }
 
-  &-item {
-    @include flexOn('center');
+  // &-item {
+  &__item {
     background-color: $white;
+    @include flexOn('center');
 
-    @media (max-width: $lgWidth + px) {
-      @include positionTopLeft('absolute', -100%, 0);
-      z-index: 5;
-      width: 100%;
+    @include maxLg {
       box-shadow: 0 0 5px rgba(212, 209, 205, 0.3);
-      visibility: hidden;
+      @include positionTopLeft('absolute', -100%);
+      width: 100%;
+      z-index: 5;
       opacity: 0;
+      visibility: hidden;
       @include transitionAll;
     }
   }
 
-  &-btn {
+  // &-btn {
+  &__btn {
     flex: 0 0 45px;
     height: 45px;
     font-size: 15px;
     color: #333;
   }
 
-  &-input {
-    padding-right: 20px;
-    width: 100%;
+  // &-input {
+  &__input {
     font-size: 14px;
+    width: 100%;
+    padding-right: 20px;
     color: $lightBlack;
   }
 }
@@ -364,7 +353,8 @@
   }
 }
 
-.actions {
+// .actions {
+.actions-header {
   $block: &;
 
   position: relative;
@@ -375,34 +365,177 @@
   align-items: center;
   @include adaptiveProp('gap', 15, 32, 'max');
 
-  &-item {
+  // &-item {
+  &__item {
     $elem: &;
 
-    &#{$elem}--favorites {
+    // &#{$elem}--favorites {
+    &_favorites {
       @include icon;
     }
 
-    &#{$elem}--user {
-      border-radius: 50%;
+    // &#{$elem}--user {
+    &_user {
       overflow: hidden;
+      border-radius: 50%;
       @include adaptiveProp('size', 30, 40, 'max');
     }
   }
 }
 
-.cart {
-  &-icon {
+// .cart {
+.cart-header {
+  // &-icon {
+  &__icon {
     position: relative;
     display: block;
     @include icon;
 
     span {
       @include position('absolute -10px -10px * *');
+      size: 20px;
       @include flexOn('center', 'center');
       border-radius: 50%;
-      size: 20px;
-      font-size: 12px;
       color: $white $orange;
+      font-size: 12px;
+    }
+  }
+
+  // PASTED BEGIN
+
+  // .cart-header__body
+  &__body {
+    background: #f4f5f7;
+    border: 1px solid #e0e0e0;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    padding: 15px;
+    width: 300px;
+    z-index: 5;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease 0s;
+    transform: translate(0px, 20px);
+    ._active & {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0px, 0px);
+    }
+    @include maxLg {
+      top: 50px;
+    }
+    @include maxMd {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      width: 100%;
+    }
+  }
+  // .cart-header__list
+  &__list {
+  }
+}
+.cart-list {
+  overflow: auto;
+  max-height: 200px;
+  // .cart-list__image
+  &__image {
+    flex: 0 0 100px;
+    height: 100px;
+  }
+  // .cart-list__body
+  &__body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 0px 10px;
+  }
+  // .cart-list__title
+  &__title {
+    color: inherit;
+    font-weight: 600;
+    transition: color 0.3s ease 0s;
+    margin: 0px 0px toEm(5px, 16px) 0px;
+    @media (any-hover: hover) {
+      &:hover {
+        color: $orange;
+      }
+    }
+  }
+  // .cart-list__quantity
+  &__quantity {
+    font-size: 14px;
+    margin: 0px 0px toEm(5px, 14px) 0px;
+  }
+  // .cart-list__delete
+  &__delete {
+    color: red;
+    font-size: 14px;
+    @media (any-hover: hover) {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  // .cart-list__item
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    &:not(:last-child) {
+      margin: 0px 0px 15px 0px;
+    }
+  }
+
+  // PASTED END
+}
+
+// &-burger {
+.icon-menu {
+  display: none;
+
+  @include maxMd {
+    $block: &;
+    $middleTop: calc(50% - 1px);
+
+    @include adaptiveProp('margin-left', 15, 32, 'max');
+    position: relative;
+    display: block;
+    flex: 0 0 30px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 5;
+
+    span {
+      @include transitionAll;
+      @include absoluteWidestElem(2px, 0, $middleTop);
+      background-color: $black;
+
+      &:first-child {
+        top: 0;
+      }
+
+      &:last-child {
+        top: auto;
+        bottom: 0;
+      }
+    }
+
+    &#{$block}--active {
+      span {
+        transform: scale(0);
+
+        &:first-child {
+          transform: rotate(-45deg);
+          top: $middleTop;
+        }
+
+        &:last-child {
+          transform: rotate(45deg);
+          bottom: $middleTop;
+        }
+      }
     }
   }
 }

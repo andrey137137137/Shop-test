@@ -8,9 +8,14 @@
   @return withMeasure($value, 'px');
 }
 
-@function toPercent($part, $all) {
-  // @return $part / $all * 100%;
-  @return math.div($part, $all) * 100%;
+@function toPercent($part, $all, $multy: 100%) {
+  // @return $part / $all * $multy;
+  @return math.div($part, $all) * $multy;
+}
+
+@function toEm($part, $all) {
+  // @return $part / $all * $multy;
+  @return toPercent($part, $all, 1em);
 }
 
 @function adaptiveValue($min, $max) {

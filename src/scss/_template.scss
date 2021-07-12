@@ -1,16 +1,20 @@
 body {
   position: relative;
   color: $mainColor #f9f1e7;
+
+  // &._lock {
+  //   overflow: hidden;
+  // }
 }
 
 .wrapper {
-	width: 100%;
-	min-height: 100%;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-	// &._loaded {
-	// }
+  width: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  // &._loaded {
+  // }
 }
 
 .section {
@@ -26,7 +30,7 @@ body {
     $doubleSidePadding: $sidePadding * 2;
 
     @include margin('* auto');
-    @include padding('* #{$sidePadding}');
+    @include padding('* #{withPx($sidePadding)}');
     // min-width: withPx($minWidth);
     max-width: withPx($maxWidth);
 

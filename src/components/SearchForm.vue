@@ -1,9 +1,9 @@
 <template lang='pug'>
-.search_form(:class='activeClass')
-  BtnTag(iconClass='loupe', classes='search_form-icon', ref='toggle')
-  form.search_form-item(action='#', ref='searchForm')
-    BtnTag(iconClass='loupe', classes='search_form-btn')
-    input.search_form-input(autocomplete='off', type='text')
+.search-form(:class='activeClass')
+  BtnTag(iconClass='loupe', classes='search-form__icon', ref='toggle')
+  form.search-form__item(action='#', ref='searchForm')
+    BtnTag(iconClass='loupe', classes='search-form__btn')
+    input.search-form__input(autocomplete='off', type='text')
     //- style='line-height: 50px',
     //- type='submit',
 </template>
@@ -25,7 +25,8 @@ export default {
   },
   computed: {
     activeClass() {
-      return { 'search_form--active': this.isToggled };
+      // return { 'search_form--active': this.isToggled };
+      return { _active: this.isToggled };
     },
   },
   methods: {

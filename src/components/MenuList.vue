@@ -1,19 +1,19 @@
 <template lang='pug'>
-ul.menu-list
-  li.menu-item(
+ul.menu__list
+  li.menu__item(
     v-for='(item, index) in menuItems',
     :class='itemHoverClass(index)'
   )
-    LinkTag.menu-link {{ item.title }}
+    LinkTag.menu__link {{ item.title }}
     BtnTag(
       v-if='areSubItems(item.items)',
       iconClass='ver_chevron',
-      classes='menu-arrow',
+      classes='menu__arrow',
       ref='arrows'
     )
-    ul.menu-sub_list(v-if='areSubItems(item.items)', ref='subLists')
-      li.menu-sub_item(v-for='i in item.items', :key='i')
-        LinkTag.menu-sub_link {{ getSubTitle(item.title, i) }}
+    ul.menu__sub-list(v-if='areSubItems(item.items)', ref='subLists')
+      li.menu__sub-item(v-for='i in item.items', :key='i')
+        LinkTag.menu__sub-link {{ getSubTitle(item.title, i) }}
 </template>
 
 <script>
@@ -60,7 +60,8 @@ export default {
       return `${title} #${index}`;
     },
     itemHoverClass(index) {
-      return { 'menu-item--hover': this.selectedItems[index] };
+      // return { 'menu-item--hover': this.selectedItems[index] };
+      return { _hover: this.selectedItems[index] };
     },
     reset() {
       if (this.selectedItemsCount > 0) {
