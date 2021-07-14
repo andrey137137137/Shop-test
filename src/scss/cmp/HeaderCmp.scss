@@ -393,8 +393,8 @@
 
     span {
       @include position('absolute -10px -10px * *');
-      size: 20px;
       @include flexOn('center', 'center');
+      size: 20px;
       border-radius: 50%;
       color: $white $orange;
       font-size: 12px;
@@ -433,9 +433,10 @@
     }
   }
   // .cart-header__list
-  &__list {
-  }
+  // &__list {
+  // }
 }
+
 .cart-list {
   overflow: auto;
   max-height: 200px;
@@ -522,7 +523,8 @@
       }
     }
 
-    &#{$block}--active {
+    // &#{$block}--active {
+    &._active {
       span {
         transform: scale(0);
 

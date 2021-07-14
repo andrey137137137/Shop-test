@@ -64,10 +64,12 @@ export default {
   },
   computed: {
     menuActiveClass() {
-      return { 'menu-body--active': this.isToggled };
+      // return { 'menu-body--active': this.isToggled };
+      return { _active: this.isToggled };
     },
     burgerActiveClass() {
-      return { 'header-burger--active': this.isToggled };
+      // return { 'header-burger--active': this.isToggled };
+      return { _active: this.isToggled };
     },
   },
   methods: {
