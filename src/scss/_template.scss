@@ -133,3 +133,13 @@ body {
   border-radius: $borderRadius;
   @include padding('* 0');
 }
+
+.slide {
+  &-enter-active,
+  &-leave-active {
+    // @include transitionAll;
+    @include margin('0 *');
+    @include padding('0 *');
+    overflow: hidden;
+  }
+}

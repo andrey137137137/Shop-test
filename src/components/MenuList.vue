@@ -11,9 +11,15 @@ ul.menu__list
       classes='menu__arrow',
       ref='arrows'
     )
-    ul.menu__sub-list(v-if='areSubItems(item.items)', ref='subLists')
-      li.menu__sub-item(v-for='i in item.items', :key='i')
-        LinkTag.menu__sub-link {{ getSubTitle(item.title, i) }}
+    transition(name='slide')
+      ul.menu__sub-list(
+        v-if='areSubItems(item.items)',
+        v-show='isSelectedOnMobile(index)',
+        :key='"subList-" + index',
+        ref='subLists'
+      )
+        li.menu__sub-item(v-for='i in item.items', :key='i')
+          LinkTag.menu__sub-link {{ getSubTitle(item.title, i) }}
 </template>
 
 <script>
@@ -70,7 +76,6 @@ export default {
       }
     },
     setSelectedItem(index) {
-      this.isToggledSearchForm = false;
       this.$set(this.selectedItems, index, !this.selectedItems[index]);
 
       if (this.selectedItems[index]) {
@@ -82,6 +87,17 @@ export default {
       if (this.selectedItemsCount < 0) {
         this.selectedItemsCount = 0;
       }
+    },
+    isSelectedOnMobile(index) {
+      if (
+        this.selectedItems[index] &&
+        window.innerWidth < 768 &&
+        this.isGadget()
+      ) {
+        return true;
+      }
+
+      return false;
     },
     isClickedParent(target) {
       for (let index = 0; index < this.$refs.subLists.length; index++) {
@@ -105,6 +121,18 @@ export default {
       }
 
       return false;
+    },
+    beforeEnter(el) {
+      el.style.height = 0;
+    },
+    afterEnter(el) {
+      el.style.height = el.offsetHeight + 'px';
+    },
+    beforeLeave(el) {
+      el.style.height = el.offsetHeight + 'px';
+    },
+    afterLeave(el) {
+      el.style.height = 0;
     },
   },
   created() {

@@ -172,12 +172,12 @@
       }
     }
 
-    @include minMd {
-      // &#{$elem}--hover {
-      &._hover {
-        @include touchStyles;
-      }
+    // @include minMd {
+    // &#{$elem}--hover {
+    &._hover {
+      @include touchStyles;
     }
+    // }
 
     @include maxMd {
       @include margin('* 0 15px');
@@ -224,6 +224,10 @@
     background-color: $orange;
     padding: 15px;
     flex: 1 1 100%;
+    // @include transition('margin');
+    // @include transition('padding');
+    // @include transition('height');
+    @include transitionAll;
 
     @include minMd {
       opacity: 0;
