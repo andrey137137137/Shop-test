@@ -60,6 +60,7 @@ export default {
       ],
       selectedItems: [],
       selectedItemsCount: 0,
+      isMobile: false,
     };
   },
   methods: {
@@ -94,7 +95,7 @@ export default {
       }
     },
     isSelectedOnMobile(index) {
-      if (window.innerWidth >= 768) {
+      if (!this.isMobile) {
         return true;
       }
 
@@ -171,11 +172,25 @@ export default {
         element.style.height = 0;
       });
     },
+    onResize() {
+      console.log(window.innerWidth);
+      if (window.innerWidth < 768) {
+        this.isMobile = true;
+      } else {
+        this.isMobile = false;
+      }
+    },
   },
   created() {
     this.menuItems.forEach(() => {
       this.selectedItems.push(false);
     });
+  },
+  mounted() {
+    window.addEventListener('resize', this.onResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
   },
 };
 </script>
