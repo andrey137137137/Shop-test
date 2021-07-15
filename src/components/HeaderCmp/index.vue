@@ -44,8 +44,8 @@ import clickAwayMixin from '@mxn/clickAwayMixin';
 import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 import ImgTag from '@tags/ImgTag';
-import MenuList from '@cmp/MenuList';
-import SearchForm from '@cmp/SearchForm';
+import MenuList from './MenuList';
+import SearchForm from './SearchForm';
 
 export default {
   name: 'HeaderCmp',

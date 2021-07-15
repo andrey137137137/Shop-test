@@ -11,7 +11,12 @@ ul.menu__list
       classes='menu__arrow',
       ref='arrows'
     )
-    transition(name='slide')
+    transition(
+      name='slide',
+      v-on:enter='enter',
+      v-on:after-enter='afterEnter',
+      v-on:leave='leave'
+    )
       ul.menu__sub-list(
         v-if='areSubItems(item.items)',
         v-show='isSelectedOnMobile(index)',
@@ -89,11 +94,11 @@ export default {
       }
     },
     isSelectedOnMobile(index) {
-      if (
-        this.selectedItems[index] &&
-        window.innerWidth < 768 &&
-        this.isGadget()
-      ) {
+      if (window.innerWidth >= 768) {
+        return true;
+      }
+
+      if (this.selectedItems[index] && this.isGadget()) {
         return true;
       }
 
@@ -122,17 +127,49 @@ export default {
 
       return false;
     },
-    beforeEnter(el) {
-      el.style.height = 0;
+    enter(element) {
+      const width = getComputedStyle(element).width;
+
+      element.style.width = width;
+      element.style.position = 'absolute';
+      element.style.visibility = 'hidden';
+      element.style.height = 'auto';
+
+      const height = getComputedStyle(element).height;
+
+      element.style.width = null;
+      element.style.position = null;
+      element.style.visibility = null;
+      element.style.height = 0;
+
+      // Force repaint to make sure the
+      // animation is triggered correctly.
+      getComputedStyle(element).height;
+
+      // Trigger the animation.
+      // We use `requestAnimationFrame` because we need
+      // to make sure the browser has finished
+      // painting after setting the `height`
+      // to `0` in the line above.
+      requestAnimationFrame(() => {
+        element.style.height = height;
+      });
     },
-    afterEnter(el) {
-      el.style.height = el.offsetHeight + 'px';
+    afterEnter(element) {
+      element.style.height = 'auto';
     },
-    beforeLeave(el) {
-      el.style.height = el.offsetHeight + 'px';
-    },
-    afterLeave(el) {
-      el.style.height = 0;
+    leave(element) {
+      const height = getComputedStyle(element).height;
+
+      element.style.height = height;
+
+      // Force repaint to make sure the
+      // animation is triggered correctly.
+      getComputedStyle(element).height;
+
+      requestAnimationFrame(() => {
+        element.style.height = 0;
+      });
     },
   },
   created() {

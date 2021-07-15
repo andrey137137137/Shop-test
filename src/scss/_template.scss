@@ -1,3 +1,10 @@
+* {
+  will-change: height;
+  // transform: translateZ(0);
+  // backface-visibility: hidden;
+  // perspective: 1000px;
+}
+
 body {
   position: relative;
   color: $mainColor #f9f1e7;
@@ -137,9 +144,22 @@ body {
 .slide {
   &-enter-active,
   &-leave-active {
-    // @include transitionAll;
+    @include transitionAll;
     @include margin('0 *');
     @include padding('0 *');
     overflow: hidden;
+    // height: 230px;
+    // visibility: visible;
   }
+
+  &-enter,
+  &-leave-to {
+    height: 0;
+    // visibility: hidden;
+  }
+
+  // &-enter-to,
+  // &-leave {
+  //   visibility: visible;
+  // }
 }
