@@ -61,6 +61,9 @@ export default {
       selectedItems: [],
       selectedItemsCount: 0,
       isMobile: false,
+      timeout: 0,
+      transitionProperty: 'height, margin, padding',
+      transitionDuration: '1s',
     };
   },
   methods: {
@@ -129,9 +132,9 @@ export default {
       return false;
     },
     enter(element) {
-      const width = getComputedStyle(element).width;
+      // const width = getComputedStyle(element).width;
 
-      element.style.width = width;
+      element.style.width = getComputedStyle(element).width;
       element.style.position = 'absolute';
       element.style.visibility = 'hidden';
       element.style.height = 'auto';
@@ -172,13 +175,17 @@ export default {
         element.style.height = 0;
       });
     },
-    onResize() {
+    checkMobile() {
       console.log(window.innerWidth);
       if (window.innerWidth < 768) {
         this.isMobile = true;
       } else {
         this.isMobile = false;
       }
+    },
+    onResize() {
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(this.checkMobile, 100);
     },
   },
   created() {
@@ -187,6 +194,7 @@ export default {
     });
   },
   mounted() {
+    this.checkMobile();
     window.addEventListener('resize', this.onResize);
   },
   beforeDestroy() {
