@@ -40,8 +40,7 @@
 </template>
 
 <script>
-// import clickAwayMixin from '@mxn/clickAwayMixin';
-import { mapMutations } from 'vuex';
+import clickAwayMixin from '@mxn/clickAwayMixin';
 import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 import ImgTag from '@tags/ImgTag';
@@ -50,7 +49,7 @@ import SearchForm from './SearchForm';
 
 export default {
   name: 'HeaderCmp',
-  // mixins: [clickAwayMixin],
+  mixins: [clickAwayMixin],
   components: {
     LinkTag,
     BtnTag,
@@ -74,7 +73,6 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['ADD_ITEM']),
     toggle() {
       this.isToggled = !this.isToggled;
     },
@@ -88,8 +86,8 @@ export default {
 
       return false;
     },
-    clickAwayHandle(index, target) {
-      if (this.checkChildren(index, target, 5)) {
+    clickAwayHandle(index, target, context) {
+      if (context.checkChildren(index, target, 5)) {
         return true;
       }
 
@@ -107,15 +105,6 @@ export default {
 
       return false;
     },
-  },
-  created() {
-    const { isClickedParent, reset } = this;
-
-    this.ADD_ITEM({
-      isClickedParent,
-      handle: this.clickAwayHandle,
-      reset,
-    });
   },
 };
 </script>

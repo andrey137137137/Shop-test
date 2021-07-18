@@ -30,11 +30,11 @@ export default {
     },
   },
   methods: {
-    reset() {
-      this.isToggled = false;
-    },
     toggle() {
       this.isToggled = !this.isToggled;
+    },
+    reset() {
+      this.isToggled = false;
     },
     isClickedParent(target) {
       if (target == this.$refs.searchForm) {
@@ -43,8 +43,8 @@ export default {
 
       return false;
     },
-    clickAwayHandle(target) {
-      if (this.checkChildren(target, 1)) {
+    clickAwayHandle(index, target, context) {
+      if (context.checkChildren(index, target, 1)) {
         return true;
       }
 

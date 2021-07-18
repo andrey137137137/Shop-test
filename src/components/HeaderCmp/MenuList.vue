@@ -29,12 +29,13 @@ ul.menu__list
 
 <script>
 import clickAwayMixin from '@mxn/clickAwayMixin';
+import isGadgetMixin from '@mxn/isGadgetMixin';
 import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 
 export default {
   name: 'MenuList',
-  mixins: [clickAwayMixin],
+  mixins: [clickAwayMixin, isGadgetMixin],
   components: {
     LinkTag,
     BtnTag,
@@ -117,8 +118,8 @@ export default {
 
       return false;
     },
-    clickAwayHandle(target) {
-      if (this.checkChildren(target, 2)) {
+    clickAwayHandle(index, target, context) {
+      if (context.checkChildren(index, target, 2)) {
         return true;
       }
 
@@ -132,8 +133,6 @@ export default {
       return false;
     },
     enter(element) {
-      // const width = getComputedStyle(element).width;
-
       element.style.width = getComputedStyle(element).width;
       element.style.position = 'absolute';
       element.style.visibility = 'hidden';

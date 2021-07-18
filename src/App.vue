@@ -8,9 +8,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import isGadgetMixin from '@mxn/isGadgetMixin';
 import HeaderCmp from '@cmp/HeaderCmp';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'App',
@@ -23,6 +23,7 @@ export default {
   },
   methods: {
     checkChildren(index, target, deep) {
+      // console.log(this);
       for (
         let curDeep = 0, child = target;
         curDeep <= deep;
@@ -40,8 +41,10 @@ export default {
       return false;
     },
     onClick(e) {
-      if (!this.isPad()) {
-        this.resets.forEach(func => {
+      const $vm = this;
+
+      if (!$vm.isPad()) {
+        $vm.resets.forEach(func => {
           func();
         });
         return;
@@ -49,8 +52,8 @@ export default {
 
       console.log(e.target);
 
-      this.clickAways.forEach((item, index) => {
-        if (item.handle(index, e.target)) {
+      $vm.clickAways.forEach((item, index) => {
+        if (item.handle(index, e.target, $vm)) {
           return;
         }
 
