@@ -37,14 +37,10 @@ export default {
       this.isToggled = false;
     },
     isClickedParent(target) {
-      if (target == this.$refs.searchForm) {
-        return true;
-      }
-
-      return false;
+      return target == this.$refs.searchForm;
     },
-    clickAwayHandle(index, target, context) {
-      if (context.checkChildren(index, target, 1)) {
+    clickAwayHandle(triggerIndex, target, context) {
+      if (context.checkChildren(triggerIndex, target, 1)) {
         return true;
       }
 

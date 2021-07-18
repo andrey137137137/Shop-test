@@ -8,9 +8,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import isGadgetMixin from '@mxn/isGadgetMixin';
 import HeaderCmp from '@cmp/HeaderCmp';
+
+const { mapGetters } = createNamespacedHelpers('clickAway');
 
 export default {
   name: 'App',
@@ -19,10 +21,10 @@ export default {
     HeaderCmp,
   },
   computed: {
-    ...mapGetters(['clickAways', 'resets']),
+    ...mapGetters(['triggers', 'resets']),
   },
   methods: {
-    checkChildren(index, target, deep) {
+    checkChildren(triggerIndex, target, deep) {
       // console.log(this);
       for (
         let curDeep = 0, child = target;
@@ -33,7 +35,7 @@ export default {
           return false;
         }
 
-        if (this.clickAways[index].isClickedParent(child)) {
+        if (this.triggers[triggerIndex].isClickedParent(child)) {
           return true;
         }
       }
@@ -52,7 +54,7 @@ export default {
 
       console.log(e.target);
 
-      $vm.clickAways.forEach((item, index) => {
+      $vm.triggers.forEach((item, index) => {
         if (item.handle(index, e.target, $vm)) {
           return;
         }

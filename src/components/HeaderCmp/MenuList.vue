@@ -61,7 +61,7 @@ export default {
       ],
       selectedItems: [],
       selectedItemsCount: 0,
-      isMobile: false,
+      isMobileTransitionEffect: false,
       timeout: 0,
       transitionProperty: 'height, margin, padding',
       transitionDuration: '1s',
@@ -99,7 +99,7 @@ export default {
       }
     },
     isSelectedOnMobile(index) {
-      if (!this.isMobile) {
+      if (!this.isMobileTransitionEffect) {
         return true;
       }
 
@@ -110,27 +110,19 @@ export default {
       return false;
     },
     isClickedParent(target) {
-      for (let index = 0; index < this.$refs.subLists.length; index++) {
-        if (target == this.$refs.subLists[index]) {
-          return true;
-        }
-      }
-
-      return false;
+      return this.checkRefArray(this.$refs.subLists, target);
     },
-    clickAwayHandle(index, target, context) {
-      if (context.checkChildren(index, target, 2)) {
+    clickAwayHandle(triggerIndex, target, context) {
+      if (context.checkChildren(triggerIndex, target, 2)) {
         return true;
       }
 
-      for (let index = 0; index < this.$refs.arrows.length; index++) {
-        if (target == this.$refs.arrows[index].$el) {
-          this.setSelectedItem(index);
-          return true;
-        }
-      }
-
-      return false;
+      return this.checkRefArray(
+        this.$refs.arrows,
+        target,
+        this.setSelectedItem,
+        true,
+      );
     },
     enter(element) {
       element.style.width = getComputedStyle(element).width;
@@ -177,9 +169,9 @@ export default {
     checkMobile() {
       console.log(window.innerWidth);
       if (window.innerWidth < 768) {
-        this.isMobile = true;
+        this.isMobileTransitionEffect = true;
       } else {
-        this.isMobile = false;
+        this.isMobileTransitionEffect = false;
       }
     },
     onResize() {

@@ -80,14 +80,10 @@ export default {
       this.isToggled = false;
     },
     isClickedParent(target) {
-      if (target == this.$refs.menuBody.$el) {
-        return true;
-      }
-
-      return false;
+      return target == this.$refs.menuBody.$el;
     },
-    clickAwayHandle(index, target, context) {
-      if (context.checkChildren(index, target, 5)) {
+    clickAwayHandle(triggerIndex, target, context) {
+      if (context.checkChildren(triggerIndex, target, 5)) {
         return true;
       }
 
@@ -96,14 +92,7 @@ export default {
         return true;
       }
 
-      for (let index = 0; index < this.$refs.burgerLines.length; index++) {
-        if (target == this.$refs.burgerLines[index]) {
-          this.toggle();
-          return true;
-        }
-      }
-
-      return false;
+      return this.checkRefArray(this.$refs.burgerLines, target, this.toggle);
     },
   },
 };
