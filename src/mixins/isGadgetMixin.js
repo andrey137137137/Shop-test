@@ -1,26 +1,18 @@
 export default {
   methods: {
     isGadget() {
-      if (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
-          navigator.userAgent,
-        )
-      ) {
-        return true;
-      }
-
-      return false;
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+        navigator.userAgent,
+      );
+    },
+    isMobile() {
+      return window.innerWidth < 768 && this.isGadget();
     },
     isPad() {
-      if (
-        // window.innerWidth >= 768 &&
-        window.innerWidth < 992 &&
-        this.isGadget()
-      ) {
-        return true;
-      }
-
-      return false;
+      // return (
+      //   window.innerWidth >= 768 && window.innerWidth < 992 && this.isGadget()
+      // );
+      return window.innerWidth < 992 && this.isGadget();
     },
   },
 };
