@@ -33,18 +33,18 @@
 
   // &-wrapper {
   &__wrapper {
-    @include transition('background-color');
+    @include transition(background-color);
     @include fixedWidestElem;
     z-index: 50;
   }
 
   // &-body {
   &__body {
-    @include transition('min-height');
-    @include flexOn(center);
+    position: relative;
+    @include rowFlexOn;
     @include padding('5px *');
     min-height: 125px;
-    position: relative;
+    @include transition(min-height);
 
     @include maxLg {
       min-height: 80px;
@@ -57,7 +57,7 @@
 
   // &-main {
   &__main {
-    @include flexOn('center');
+    @include rowFlexOn('center');
     flex: 0 0 toPercent(494, 1240);
 
     @include maxLg {
@@ -67,12 +67,12 @@
 
   // &-logo {
   &__logo {
-    color: $black;
-    font-weight: 700;
-    font-size: 24px;
     position: relative;
     z-index: 5;
+    font-weight: 700;
+    font-size: 24px;
     line-height: toPercent(29, 24);
+    color: $black;
   }
 
   // &-menu {
@@ -104,17 +104,17 @@
       // $left: 0;
 
       @include fixedWidestElem(100%, $left);
-      overflow: auto;
       background-color: $bgColor;
-      @include transition('left');
+      @include transition(left);
       padding: 70px 15px 30px 15px;
+      overflow: auto;
 
       &:before {
-        content: '';
         @include fixedWidestElem(50px, $left);
-        @include transition('left');
-        background-color: $bgColor;
         z-index: 2;
+        background-color: $bgColor;
+        @include transition(left);
+        content: '';
       }
 
       // &#{$elem}--active {
@@ -131,7 +131,7 @@
   // &-list {
   &__list {
     @include minMd {
-      @include flexOn('', 'space-evenly', 'wrap');
+      @include rowFlexOn('', 'space-evenly', 'wrap');
     }
   }
 
@@ -139,7 +139,7 @@
   &__item {
     $elem: #{$block}-item;
 
-    @include flexOn('center', 'space-between', 'wrap');
+    @include rowFlexOn('center', 'space-between', 'wrap');
     @include margin('* 3px');
     @include padding('5px *');
     position: relative;
@@ -147,10 +147,10 @@
     @mixin touchStyles {
       // #{$block}-sub_list {
       .menu__sub-list {
-        transform: translateY(0);
+        pointer-events: auto;
         opacity: 1;
         visibility: visible;
-        pointer-events: auto;
+        transform: translateY(0);
       }
 
       // #{$block}-arrow {
@@ -192,7 +192,7 @@
   &__link {
     font-weight: 500;
     color: inherit;
-    @include transition('color');
+    @include transition(color);
 
     @include maxMd {
       font-size: 24px;
@@ -205,8 +205,8 @@
     $elem: &;
 
     margin-left: 8px;
-    @include transitionAll;
     font-size: 8px;
+    @include transitionAll;
 
     @include maxMd {
       font-size: 14px;
@@ -224,20 +224,20 @@
     background-color: $orange;
     padding: 15px;
     flex: 1 1 100%;
-    // @include transition('margin');
-    // @include transition('padding');
-    // @include transition('height');
+    // @include transition(margin);
+    // @include transition(padding);
+    // @include transition(height);
     @include transitionAll;
 
     @include minMd {
-      opacity: 0;
-      @include transitionAll;
-      transform: translateY(10px);
-      visibility: hidden;
-      min-width: 200px;
-      pointer-events: none;
       @include positionTopLeft('absolute', '100%');
       z-index: 5;
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(10px);
+      @include transitionAll;
     }
 
     @include maxMd {
@@ -290,9 +290,9 @@
     // #{$block}-item {
     .search-form__item {
       // @include isVisible;
-      opacity: 1;
       top: 100%;
       visibility: visible;
+      opacity: 1;
     }
 
     // #{$block}-icon {
@@ -315,16 +315,16 @@
 
   // &-item {
   &__item {
+    @include rowFlexOn('center');
     background-color: $white;
-    @include flexOn('center');
 
     @include maxLg {
-      box-shadow: 0 0 5px rgba(212, 209, 205, 0.3);
       @include positionTopLeft('absolute', -100%);
       width: 100%;
       z-index: 5;
       opacity: 0;
       visibility: hidden;
+      box-shadow: 0 0 5px rgba(212, 209, 205, 0.3);
       @include transitionAll;
     }
   }
@@ -339,17 +339,18 @@
 
   // &-input {
   &__input {
-    font-size: 14px;
-    width: 100%;
     padding-right: 20px;
+    width: 100%;
+    font-size: 14px;
     color: $lightBlack;
   }
 }
 
 @mixin icon {
-  color: $blue;
   font-size: 24px;
-  @include transition('color');
+  color: $blue;
+  @include transition(color);
+
   @include anyHover {
     &:hover {
       color: $orange;
@@ -380,9 +381,9 @@
 
     // &#{$elem}--user {
     &_user {
-      overflow: hidden;
       border-radius: 50%;
       @include adaptiveProp('size', 30, 40, 'max');
+      overflow: hidden;
     }
   }
 }
@@ -397,11 +398,11 @@
 
     span {
       @include position('absolute -10px -10px * *');
-      @include flexOn('center', 'center');
-      size: 20px;
+      @include rowFlexOn('center', 'center');
       border-radius: 50%;
-      color: $white $orange;
+      size: 20px;
       font-size: 12px;
+      color: $white $orange;
     }
   }
 
@@ -409,30 +410,29 @@
 
   // .cart-header__body
   &__body {
-    background: #f4f5f7;
+    @include position('absolute 60px 0 * *');
+    z-index: 5;
     border: 1px solid #e0e0e0;
-    position: absolute;
-    top: 60px;
-    right: 0;
     padding: 15px;
     width: 300px;
-    z-index: 5;
+    background: #f4f5f7;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease 0s;
-    transform: translate(0px, 20px);
+    transform: translateY(20px);
+    @include transitionAll;
+
     ._active & {
       opacity: 1;
       visibility: visible;
-      transform: translate(0px, 0px);
+      transform: translateY(0);
     }
+
     @include maxLg {
       top: 50px;
     }
+
     @include maxMd {
-      position: fixed;
-      top: 50px;
-      left: 0;
+      @include positionTopLeft('fixed', 50px, 0);
       width: 100%;
     }
   }
@@ -442,54 +442,60 @@
 }
 
 .cart-list {
-  overflow: auto;
   max-height: 200px;
+  overflow: auto;
+
   // .cart-list__image
   &__image {
     flex: 0 0 100px;
     height: 100px;
   }
+
   // .cart-list__body
   &__body {
+    @include columnFlexOn(flex-start);
     flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px 0px 0px 10px;
+    padding-left: 10px;
   }
+
   // .cart-list__title
   &__title {
-    color: inherit;
+    margin-bottom: toEm(5px, 16px);
     font-weight: 600;
-    transition: color 0.3s ease 0s;
-    margin: 0px 0px toEm(5px, 16px) 0px;
+    color: inherit;
+    @include transition(color);
+
     @media (any-hover: hover) {
       &:hover {
         color: $orange;
       }
     }
   }
+
   // .cart-list__quantity
   &__quantity {
     font-size: 14px;
-    margin: 0px 0px toEm(5px, 14px) 0px;
+    margin-bottom: toEm(5px, 14px);
   }
+
   // .cart-list__delete
   &__delete {
-    color: red;
     font-size: 14px;
+    color: red;
+
     @media (any-hover: hover) {
       &:hover {
         text-decoration: underline;
       }
     }
   }
+
   // .cart-list__item
   &__item {
-    display: flex;
-    align-items: flex-start;
+    @include rowFlexOn(flex-start);
+
     &:not(:last-child) {
-      margin: 0px 0px 15px 0px;
+      margin-bottom: 15px;
     }
   }
 
@@ -504,18 +510,18 @@
     $block: &;
     $middleTop: calc(50% - 1px);
 
-    @include adaptiveProp('margin-left', 15, 32, 'max');
     position: relative;
+    z-index: 5;
     display: block;
     flex: 0 0 30px;
+    @include adaptiveProp('margin-left', 15, 32, 'max');
     height: 18px;
     cursor: pointer;
-    z-index: 5;
 
     span {
-      @include transitionAll;
       @include absoluteWidestElem(2px, 0, $middleTop);
       background-color: $black;
+      @include transitionAll;
 
       &:first-child {
         top: 0;
@@ -533,13 +539,13 @@
         transform: scale(0);
 
         &:first-child {
-          transform: rotate(-45deg);
           top: $middleTop;
+          transform: rotate(-45deg);
         }
 
         &:last-child {
-          transform: rotate(45deg);
           bottom: $middleTop;
+          transform: rotate(45deg);
         }
       }
     }

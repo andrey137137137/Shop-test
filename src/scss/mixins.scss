@@ -115,7 +115,11 @@
 }
 
 @mixin transition($prop) {
-  transition: unquote($prop) $trsTime ease 0s;
+  transition: $prop $trsTime ease 0s;
+}
+
+@mixin transitionAll {
+  @include transition(all);
 }
 
 @mixin adaptiveProp($prop, $min, $max, $mediaType: '') {
@@ -130,10 +134,6 @@
   } @else {
     #{$prop}: $result;
   }
-}
-
-@mixin transitionAll {
-  @include transition('all');
 }
 
 @mixin positionTopLeft($type, $top: 0, $left: 0) {
@@ -161,8 +161,16 @@
   @include absoluteElem(100%, $height, $left, $top);
 }
 
-@mixin flexOn($alignItems: '', $justifyContent: '', $isWrap: '') {
-  display: flex;
+@mixin flexOn(
+  $alignItems: '',
+  $justifyContent: '',
+  $isWrap: '',
+  $flexDirection: '',
+  $display: flex
+) {
+  @if $display {
+    display: $display;
+  }
 
   @if $alignItems {
     @include cssProp('align-items', $alignItems);
@@ -175,6 +183,34 @@
   @if $isWrap {
     @include cssProp('flex-wrap', $isWrap);
   }
+
+  @if $flexDirection {
+    @include cssProp('flex-direction', $flexDirection);
+  }
+}
+
+@mixin inlineFlexOn($alignItems: center, $justifyContent: '', $isWrap: '') {
+  @include flexOn($alignItems, $justifyContent, $isWrap, '', inline-flex);
+}
+
+@mixin rowFlexOn($alignItems: center, $justifyContent: '', $isWrap: '') {
+  @include flexOn($alignItems, $justifyContent, $isWrap);
+}
+
+@mixin rowReverseFlexOn($alignItems: center, $justifyContent: '', $isWrap: '') {
+  @include flexOn($alignItems, $justifyContent, $isWrap, row-reverse);
+}
+
+@mixin columnFlexOn($alignItems: flex-start, $justifyContent: '', $isWrap: '') {
+  @include flexOn($alignItems, $justifyContent, $isWrap, column);
+}
+
+@mixin columnReverseFlexOn(
+  $alignItems: flex-start,
+  $justifyContent: '',
+  $isWrap: ''
+) {
+  @include flexOn($alignItems, $justifyContent, $isWrap, column-reverse);
 }
 
 @mixin inlineFontSize($size, $height) {

@@ -1,7 +1,7 @@
 <template lang='pug'>
 .search-form(:class='activeClass')
   BtnTag(iconClass='loupe', classes='search-form__icon', ref='toggle')
-  form.search-form__item(action='#', ref='searchForm')
+  FormTag.search-form__item(action='#', ref='searchForm')
     BtnTag(iconClass='loupe', classes='search-form__btn')
     input.search-form__input(autocomplete='off', type='text')
     //- style='line-height: 50px',
@@ -11,12 +11,14 @@
 <script>
 import clickAwayMixin from '@mxn/clickAwayMixin';
 import BtnTag from '@tags/BtnTag';
+import FormTag from '@tags/FormTag';
 
 export default {
   name: 'SearchForm',
   mixins: [clickAwayMixin],
   components: {
     BtnTag,
+    FormTag,
   },
   data() {
     return {
@@ -37,7 +39,7 @@ export default {
       this.isToggled = false;
     },
     isClickedParent(target) {
-      return target == this.$refs.searchForm;
+      return target == this.$refs.searchForm.$el;
     },
     clickAwayHandle(triggerIndex, target, context) {
       if (context.checkChildren(triggerIndex, target, 1)) {
