@@ -27,8 +27,8 @@ export default {
       });
     },
     reset() {},
-    clickAwayHandle(target) {
-      console.log('NOT OVERRIDE HANDLE FOR: ' + target);
+    clickAwayHandle(triggerIndex) {
+      console.log('NOT OVERRIDE HANDLE FOR: ' + triggerIndex);
       return false;
     },
     isClickedParent(target) {

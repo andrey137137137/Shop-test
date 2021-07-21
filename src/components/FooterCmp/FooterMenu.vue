@@ -1,30 +1,25 @@
 <template lang='pug'>
-ul.menu__list
-  li.menu__item(
+.footer__menu.menu-footer
+  .menu-footer__column(
     v-for='(item, index) in menuItems',
-    :class='itemHoverClass(index)'
+    :class='itemHoverClass(index)',
+    ref='columns'
   )
-    LinkTag.menu__link {{ item.title }}
-    BtnTag(
-      v-if='areSubItems(item.items)',
-      iconClass='ver_chevron',
-      classes='menu__arrow',
-      ref='arrows'
-    )
+    BtnTag.menu-footer__title._footer-title {{ item.title }}
     transition(
       name='slide',
       v-on:enter='enter',
       v-on:after-enter='afterEnter',
       v-on:leave='leave'
     )
-      ul.menu__sub-list(
+      ul.menu-footer__list(
         v-if='areSubItems(item.items)',
         v-show='isSelectedOnMobile(index)',
         :key='"subList-" + index',
         ref='subLists'
       )
-        li.menu__sub-item(v-for='i in item.items', :key='i')
-          LinkTag.menu__sub-link {{ getSubTitle(item.title, i) }}
+        li(v-for='(subItem, i) in item.items', :key='i')
+          LinkTag.menu-footer__link {{ subItem.title }}
 </template>
 
 <script>
@@ -34,7 +29,7 @@ import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 
 export default {
-  name: 'MenuList',
+  name: 'FooterMenu',
   mixins: [clickAwayMixin, isGadgetMixin],
   components: {
     LinkTag,
@@ -44,19 +39,70 @@ export default {
     return {
       menuItems: [
         {
-          title: 'Products',
+          title: 'Menu',
           link: '',
-          items: 4,
+          items: [
+            {
+              title: 'Products',
+              link: '',
+            },
+            {
+              title: 'Rooms',
+              link: '',
+            },
+            {
+              title: 'Inspirations',
+              link: '',
+            },
+            {
+              title: 'About Us',
+              link: '',
+            },
+            {
+              title: 'Terms & Policy',
+              link: '',
+            },
+          ],
         },
         {
-          title: 'Rooms',
+          title: 'Account',
           link: '',
-          items: 4,
+          items: [
+            {
+              title: 'My Account',
+              link: '',
+            },
+            {
+              title: 'Checkout',
+              link: '',
+            },
+            {
+              title: 'My Cart',
+              link: '',
+            },
+            {
+              title: 'My catalog',
+              link: '',
+            },
+          ],
         },
         {
-          title: 'Inspirations',
+          title: 'Stay Connected',
           link: '',
-          items: 0,
+          items: [
+            {
+              title: 'Facebook',
+              link: '',
+            },
+            {
+              title: 'Instagram',
+              link: '',
+            },
+            {
+              title: 'Twitter',
+              link: '',
+            },
+          ],
         },
       ],
       selectedItems: [],
@@ -69,7 +115,7 @@ export default {
   },
   methods: {
     areSubItems(items) {
-      return items;
+      return items.length;
     },
     getSubTitle(parentTitle, index) {
       const title = parentTitle.substr(0, parentTitle.length - 1);
@@ -89,9 +135,6 @@ export default {
       }
 
       return false;
-    },
-    isClickedParent(target) {
-      return this.checkRefArray(this.$refs.subLists, target);
     },
     enter(element) {
       element.style.width = getComputedStyle(element).width;
@@ -162,13 +205,16 @@ export default {
         this.selectedItemsCount = 0;
       }
     },
+    isClickedParent(target) {
+      return this.checkRefArray(this.$refs.subLists, target);
+    },
     clickAwayHandle(triggerIndex, target, context) {
       if (context.checkChildren(triggerIndex, target, 2)) {
         return true;
       }
 
       return this.checkRefArray(
-        this.$refs.arrows,
+        this.$refs.columns,
         target,
         this.setSelectedItem,
         true,

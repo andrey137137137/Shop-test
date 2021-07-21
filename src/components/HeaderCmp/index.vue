@@ -1,42 +1,28 @@
-<template lang='html'>
-  <header class="header">
-    <div class="header__wrapper">
-      <div class="header__container section-container">
-        <div class="header__body">
-          <div class="header__main">
-            <LinkTag class="header__logo"> Funiro.</LinkTag>
-            <div class="header__menu menu">
-              <nav class="menu__body" :class="menuActiveClass">
-                <MenuList ref="menuBody" />
-              </nav>
-            </div>
-          </div>
-          <div class="header__search">
-            <SearchForm />
-          </div>
-          <div class="header__actions actions-header">
-            <LinkTag
-              iconClass="heart"
-              classes="actions-header__item actions-header__item_favorites"
-            >
-            </LinkTag>
-            <div class="actions-header__item cart-header">
-              <LinkTag iconClass="cart" classes="cart-header__icon"></LinkTag>
-              <div class="cart-header__body">
-                <ul class="cart-header__list cart-list"></ul>
-              </div>
-            </div>
-            <LinkTag class="actions-header__item actions-header__item_user _ibg">
-              <ImgTag alt="Avatar" :src="require('@assets/logo.png')" />
-            </LinkTag>
-          </div>
-          <BtnTag class="icon-menu" :class="burgerActiveClass" ref="burger">
-            <span v-for="i in 3" :key="i" ref="burgerLines"></span>
-          </BtnTag>
-        </div>
-      </div>
-    </div>
-  </header>
+<template lang='pug'>
+header.header
+  .header__wrapper
+    .header__container.section-container
+      .header__body
+        .header__main
+          LinkTag.header__logo Funiro.
+          .header__menu.menu
+            nav.menu__body(:class='menuActiveClass')
+              HeaderMenu(ref='menuBody')
+        .header__search
+          SearchForm
+        .header__actions.actions-header
+          LinkTag(
+            iconClass='heart',
+            classes='actions-header__item actions-header__item_favorites'
+          )
+          .actions-header__item.cart-header
+            LinkTag(iconClass='cart', classes='cart-header__icon')
+            .cart-header__body
+              ul.cart-header__list.cart-list
+          LinkTag.actions-header__item.actions-header__item_user._ibg
+            ImgTag(alt='Avatar', :src='require("@assets/logo.png")')
+        BtnTag.icon-menu(:class='burgerActiveClass', ref='burger')
+          span(v-for='i in 3', :key='i', ref='burgerLines')
 </template>
 
 <script>
@@ -44,7 +30,7 @@ import clickAwayMixin from '@mxn/clickAwayMixin';
 import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 import ImgTag from '@tags/ImgTag';
-import MenuList from './MenuList';
+import HeaderMenu from './HeaderMenu';
 import SearchForm from './SearchForm';
 
 export default {
@@ -54,7 +40,7 @@ export default {
     LinkTag,
     BtnTag,
     ImgTag,
-    MenuList,
+    HeaderMenu,
     SearchForm,
   },
   data() {

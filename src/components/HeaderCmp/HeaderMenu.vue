@@ -2,7 +2,8 @@
 ul.menu__list
   li.menu__item(
     v-for='(item, index) in menuItems',
-    :class='itemHoverClass(index)'
+    :class='itemHoverClass(index)',
+    ref='items'
   )
     LinkTag.menu__link {{ item.title }}
     BtnTag(
@@ -34,7 +35,7 @@ import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 
 export default {
-  name: 'MenuList',
+  name: 'HeaderMenu',
   mixins: [clickAwayMixin, isGadgetMixin],
   components: {
     LinkTag,
@@ -89,9 +90,6 @@ export default {
       }
 
       return false;
-    },
-    isClickedParent(target) {
-      return this.checkRefArray(this.$refs.subLists, target);
     },
     enter(element) {
       element.style.width = getComputedStyle(element).width;
@@ -162,10 +160,20 @@ export default {
         this.selectedItemsCount = 0;
       }
     },
+    isClickedParent(target) {
+      return this.checkRefArray(this.$refs.subLists, target);
+    },
     clickAwayHandle(triggerIndex, target, context) {
       if (context.checkChildren(triggerIndex, target, 2)) {
         return true;
       }
+
+      // if (
+      //   this.isMobileTransitionEffect &&
+      //   this.checkRefArray(this.$refs.items, target, this.setSelectedItem, true)
+      // ) {
+      //   return true;
+      // }
 
       return this.checkRefArray(
         this.$refs.arrows,
