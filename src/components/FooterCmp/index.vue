@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import clickAwayMixin from '@mxn/clickAwayMixin';
+// import clickAwayMixin from '@mxn/clickAwayMixin';
 import LinkTag from '@tags/LinkTag';
 // import BtnTag from '@tags/BtnTag';
 // import ImgTag from '@tags/ImgTag';
@@ -28,7 +28,7 @@ import FooterForm from './FooterForm';
 
 export default {
   name: 'FooterCmp',
-  mixins: [clickAwayMixin],
+  // mixins: [clickAwayMixin],
   components: {
     LinkTag,
     // BtnTag,

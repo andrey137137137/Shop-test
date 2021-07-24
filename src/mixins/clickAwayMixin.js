@@ -3,7 +3,7 @@ const { mapMutations } = createNamespacedHelpers('clickAway');
 
 export default {
   methods: {
-    ...mapMutations(['addItem']),
+    ...mapMutations({ addClickAwayHandle: 'addItem' }),
     checkRefArray(arr, target, cb = null, toUseIndex = false) {
       return arr.some((el, index) => {
         const elem = el.$el ? el.$el : el;
@@ -39,7 +39,7 @@ export default {
   created() {
     const { isClickedParent, reset } = this;
 
-    this.addItem({
+    this.addClickAwayHandle({
       isClickedParent,
       handle: this.clickAwayHandle,
       reset,

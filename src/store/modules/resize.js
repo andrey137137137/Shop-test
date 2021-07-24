@@ -4,7 +4,7 @@ export default {
     handles: [],
   },
   getters: {
-    handles: () => state.handles,
+    handles: state => state.handles,
   },
   mutations: {
     addHandle(state, payload) {

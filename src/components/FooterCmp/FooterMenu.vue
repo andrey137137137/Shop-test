@@ -23,14 +23,13 @@
 </template>
 
 <script>
-import clickAwayMixin from '@mxn/clickAwayMixin';
-import isGadgetMixin from '@mxn/isGadgetMixin';
+import dropDownMenuMixin from '@mxn/dropDownMenuMixin';
 import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 
 export default {
   name: 'FooterMenu',
-  mixins: [clickAwayMixin, isGadgetMixin],
+  mixins: [dropDownMenuMixin],
   components: {
     LinkTag,
     BtnTag,
@@ -105,12 +104,6 @@ export default {
           ],
         },
       ],
-      selectedItems: [],
-      selectedItemsCount: 0,
-      isMobileTransitionEffect: false,
-      timeout: 0,
-      transitionProperty: 'height, margin, padding',
-      transitionDuration: '1s',
     };
   },
   methods: {
@@ -120,90 +113,6 @@ export default {
     getSubTitle(parentTitle, index) {
       const title = parentTitle.substr(0, parentTitle.length - 1);
       return `${title} #${index}`;
-    },
-    itemHoverClass(index) {
-      // return { 'menu-item--hover': this.selectedItems[index] };
-      return { _hover: this.selectedItems[index] };
-    },
-    isSelectedOnMobile(index) {
-      if (!this.isMobileTransitionEffect) {
-        return true;
-      }
-
-      if (this.selectedItems[index] && this.isGadget()) {
-        return true;
-      }
-
-      return false;
-    },
-    enter(element) {
-      element.style.width = getComputedStyle(element).width;
-      element.style.position = 'absolute';
-      element.style.visibility = 'hidden';
-      element.style.height = 'auto';
-
-      const height = getComputedStyle(element).height;
-
-      element.style.width = null;
-      element.style.position = null;
-      element.style.visibility = null;
-      element.style.height = 0;
-
-      // Force repaint to make sure the
-      // animation is triggered correctly.
-      getComputedStyle(element).height;
-
-      // Trigger the animation.
-      // We use `requestAnimationFrame` because we need
-      // to make sure the browser has finished
-      // painting after setting the `height`
-      // to `0` in the line above.
-      requestAnimationFrame(() => {
-        element.style.height = height;
-      });
-    },
-    afterEnter(element) {
-      element.style.height = 'auto';
-    },
-    leave(element) {
-      const height = getComputedStyle(element).height;
-
-      element.style.height = height;
-
-      // Force repaint to make sure the
-      // animation is triggered correctly.
-      getComputedStyle(element).height;
-
-      requestAnimationFrame(() => {
-        element.style.height = 0;
-      });
-    },
-    checkMobile() {
-      console.log(window.innerWidth);
-      if (this.isMobile()) {
-        this.isMobileTransitionEffect = true;
-      } else {
-        this.isMobileTransitionEffect = false;
-      }
-    },
-    reset() {
-      if (!this.isMobileTransitionEffect && this.selectedItemsCount > 0) {
-        this.selectedItems = this.selectedItems.map(() => false);
-        this.selectedItemsCount = 0;
-      }
-    },
-    setSelectedItem(index) {
-      this.$set(this.selectedItems, index, !this.selectedItems[index]);
-
-      if (this.selectedItems[index]) {
-        this.selectedItemsCount++;
-      } else {
-        this.selectedItemsCount--;
-      }
-
-      if (this.selectedItemsCount < 0) {
-        this.selectedItemsCount = 0;
-      }
     },
     isClickedParent(target) {
       return this.checkRefArray(this.$refs.subLists, target);
@@ -220,22 +129,6 @@ export default {
         true,
       );
     },
-    onResize() {
-      clearTimeout(this.timeout);
-      this.timeout = setTimeout(this.checkMobile, 100);
-    },
-  },
-  created() {
-    this.menuItems.forEach(() => {
-      this.selectedItems.push(false);
-    });
-  },
-  mounted() {
-    this.checkMobile();
-    window.addEventListener('resize', this.onResize);
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.onResize);
   },
 };
 </script>

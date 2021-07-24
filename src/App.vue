@@ -14,7 +14,8 @@ import isGadgetMixin from '@mxn/isGadgetMixin';
 import HeaderCmp from '@cmp/HeaderCmp';
 import FooterCmp from '@cmp/FooterCmp';
 
-const { mapGetters } = createNamespacedHelpers('clickAway');
+const clickAwayMapGetters = createNamespacedHelpers('clickAway').mapGetters;
+const resizeMapGetters = createNamespacedHelpers('resize').mapGetters;
 
 export default {
   name: 'App',
@@ -23,10 +24,28 @@ export default {
     HeaderCmp,
     FooterCmp,
   },
+  data() {
+    return { timeout: 0 };
+  },
   computed: {
-    ...mapGetters(['triggers', 'resets']),
+    ...clickAwayMapGetters({
+      clickAwayTriggers: 'triggers',
+      clickAwayResets: 'resets',
+    }),
+    ...resizeMapGetters({
+      resizeHandles: 'handles',
+    }),
   },
   methods: {
+    runResizeHandles() {
+      this.resizeHandles.forEach(handle => {
+        handle();
+      });
+    },
+    onResize() {
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(this.runResizeHandles, 100);
+    },
     checkChildren(triggerIndex, target, deep) {
       // console.log(this);
       for (
@@ -38,7 +57,7 @@ export default {
           return false;
         }
 
-        if (this.triggers[triggerIndex].isClickedParent(child)) {
+        if (this.clickAwayTriggers[triggerIndex].isClickedParent(child)) {
           return true;
         }
       }
@@ -49,7 +68,7 @@ export default {
       const $vm = this;
 
       if (!$vm.isPad()) {
-        $vm.resets.forEach(func => {
+        $vm.clickAwayResets.forEach(func => {
           func();
         });
         return;
@@ -57,7 +76,7 @@ export default {
 
       console.log(e.target);
 
-      $vm.triggers.forEach((item, index) => {
+      $vm.clickAwayTriggers.forEach((item, index) => {
         if (item.handle(index, e.target, $vm)) {
           return;
         }
@@ -67,9 +86,12 @@ export default {
     },
   },
   mounted() {
+    this.runResizeHandles();
+    window.addEventListener('resize', this.onResize);
     document.addEventListener('click', this.onClick);
   },
   beforeDestroy() {
+    window.removeEventListener('resize', this.onResize);
     document.removeEventListener('click', this.onClick);
   },
 };
