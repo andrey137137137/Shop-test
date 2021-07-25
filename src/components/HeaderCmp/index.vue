@@ -7,7 +7,8 @@ header.header
           LinkTag.header__logo Funiro.
           .header__menu.menu
             nav.menu__body(:class='menuActiveClass')
-              HeaderMenu(ref='menuBody')
+              NavMenu(:items='menuItems', :isHeaderMenu='true', ref='menuBody')
+              //- HeaderMenu(ref='menuBody')
         .header__search
           SearchForm
         .header__actions.actions-header
@@ -30,7 +31,8 @@ import clickAwayMixin from '@mxn/clickAwayMixin';
 import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 import ImgTag from '@tags/ImgTag';
-import HeaderMenu from './HeaderMenu';
+// import HeaderMenu from './HeaderMenu';
+import NavMenu from '@cmp/NavMenu';
 import SearchForm from './SearchForm';
 
 export default {
@@ -40,11 +42,29 @@ export default {
     LinkTag,
     BtnTag,
     ImgTag,
-    HeaderMenu,
+    // HeaderMenu,
+    NavMenu,
     SearchForm,
   },
   data() {
     return {
+      menuItems: [
+        {
+          title: 'Products',
+          link: '',
+          items: 4,
+        },
+        {
+          title: 'Rooms',
+          link: '',
+          items: 4,
+        },
+        {
+          title: 'Inspirations',
+          link: '',
+          items: 0,
+        },
+      ],
       isToggled: false,
     };
   },

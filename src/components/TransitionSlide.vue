@@ -11,6 +11,12 @@ transition(
 <script>
 export default {
   name: 'TransitionSlide',
+  // data() {
+  //   return {
+  //     transitionProperty: 'height, margin, padding',
+  //     transitionDuration: '1s',
+  //   };
+  // },
   methods: {
     enter(element) {
       element.style.width = getComputedStyle(element).width;

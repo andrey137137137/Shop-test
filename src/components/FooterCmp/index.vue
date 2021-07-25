@@ -11,7 +11,15 @@
             <LinkTag href="https://www.funiro.com" target="_blank" class="contacts-footer__item">www.funiro.com</LinkTag>
           </div>
         </div>
-        <FooterMenu />
+        <NavMenu
+          :items='menuItems'
+          listClasses='footer__menu menu-footer'
+          itemClasses='menu-footer__column'
+          btnClasses='menu-footer__title _footer-title'
+          subListClasses='menu-footer__list'
+          subItemClasses=''
+          subLinkClasses='menu-footer__link' />
+        <!-- <FooterMenu /> -->
         <FooterForm />
 		</div>
 	</div>
@@ -19,61 +27,91 @@
 </template>
 
 <script>
-// import clickAwayMixin from '@mxn/clickAwayMixin';
 import LinkTag from '@tags/LinkTag';
-// import BtnTag from '@tags/BtnTag';
-// import ImgTag from '@tags/ImgTag';
-import FooterMenu from './FooterMenu';
+// import FooterMenu from './FooterMenu';
+import NavMenu from '@cmp/NavMenu';
 import FooterForm from './FooterForm';
 
 export default {
   name: 'FooterCmp',
-  // mixins: [clickAwayMixin],
   components: {
     LinkTag,
-    // BtnTag,
-    // ImgTag,
-    FooterMenu,
+    // FooterMenu,
+    NavMenu,
     FooterForm,
   },
-  // data() {
-  //   return {
-  //     isToggled: false,
-  //   };
-  // },
-  // computed: {
-  //   menuActiveClass() {
-  //     // return { 'menu-body--active': this.isToggled };
-  //     return { _active: this.isToggled };
-  //   },
-  //   burgerActiveClass() {
-  //     // return { 'header-burger--active': this.isToggled };
-  //     return { _active: this.isToggled };
-  //   },
-  // },
-  // methods: {
-  //   toggle() {
-  //     this.isToggled = !this.isToggled;
-  //   },
-  //   reset() {
-  //     this.isToggled = false;
-  //   },
-  //   isClickedParent(target) {
-  //     return target == this.$refs.menuBody.$el;
-  //   },
-  //   clickAwayHandle(triggerIndex, target, context) {
-  //     if (context.checkChildren(triggerIndex, target, 5)) {
-  //       return true;
-  //     }
-
-  //     if (target == this.$refs.burger.$el) {
-  //       this.toggle();
-  //       return true;
-  //     }
-
-  //     return this.checkRefArray(this.$refs.burgerLines, target, this.toggle);
-  //   },
-  // },
+  data() {
+    return {
+      menuItems: [
+        {
+          title: 'Menu',
+          link: '',
+          items: [
+            {
+              title: 'Products',
+              link: '',
+            },
+            {
+              title: 'Rooms',
+              link: '',
+            },
+            {
+              title: 'Inspirations',
+              link: '',
+            },
+            {
+              title: 'About Us',
+              link: '',
+            },
+            {
+              title: 'Terms & Policy',
+              link: '',
+            },
+          ],
+        },
+        {
+          title: 'Account',
+          link: '',
+          items: [
+            {
+              title: 'My Account',
+              link: '',
+            },
+            {
+              title: 'Checkout',
+              link: '',
+            },
+            {
+              title: 'My Cart',
+              link: '',
+            },
+            {
+              title: 'My catalog',
+              link: '',
+            },
+          ],
+        },
+        {
+          title: 'Stay Connected',
+          link: '',
+          items: [
+            {
+              title: 'Facebook',
+              link: '',
+            },
+            {
+              title: 'Instagram',
+              link: '',
+            },
+            {
+              title: 'Twitter',
+              link: '',
+            },
+          ],
+        },
+      ],
+    };
+  },
 };
 </script>
 

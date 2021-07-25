@@ -5,10 +5,12 @@ ul(:class='listClasses')
 </template>
 
 <script>
+import concatClassesMixin from '@mxn/concatClassesMixin';
 import LinkTag from '@tags/LinkTag';
 
 export default {
   name: 'DropDownMenu',
+  mixins: [concatClassesMixin],
   components: {
     LinkTag,
   },

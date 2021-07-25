@@ -1,4 +1,7 @@
+import concatClassesMixin from '@mxn/concatClassesMixin';
+
 export default {
+  mixins: [concatClassesMixin],
   props: {
     iconClass: {
       type: String,
@@ -9,41 +12,18 @@ export default {
     },
   },
   computed: {
-    areClassesAsString() {
-      return typeof this.classes === 'string';
-    },
-    areClasses() {
-      if (this.areClassesAsString) {
-        return this.classes;
-      }
-
-      if (typeof this.classes === 'object') {
-        for (let key in this.classes) {
-          if (Object.prototype.hasOwnProperty.call(this.classes, key)) {
-            return true;
-          }
-        }
-      }
-
-      return false;
-    },
     compClasses() {
-      const resultClasses = {};
+      const iconClasses = {};
 
       if (this.iconClass) {
-        resultClasses.icon = true;
-        resultClasses[`icon-${this.iconClass}`] = true;
+        iconClasses.icon = true;
+        iconClasses[`icon-${this.iconClass}`] = true;
       }
 
-      if (this.areClasses) {
-        if (this.areClassesAsString) {
-          this.classes.split(' ').forEach(function(item) {
-            resultClasses[item] = true;
-          });
-        }
-      }
-
-      return resultClasses;
+      return {
+        ...iconClasses,
+        ...this.getClassesAsObject(this.classes),
+      };
     },
   },
 };
