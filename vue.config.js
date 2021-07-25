@@ -14,6 +14,8 @@ module.exports = {
     },
   },
   chainWebpack: config => {
+    // config.resolve.alias.set('@api', path.join(resolve('api'), 'index.js'));
+    config.resolve.alias.set('@api', resolve('api'));
     config.resolve.alias.set('@assets', resolve('assets'));
     config.resolve.alias.set('@cmp', resolve('components'));
     config.resolve.alias.set('@tags', resolve('tags'));

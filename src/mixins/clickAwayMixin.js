@@ -1,4 +1,5 @@
 import { createNamespacedHelpers } from 'vuex';
+import { notOverrideMessage } from '@api';
 const { mapMutations } = createNamespacedHelpers('clickAway');
 
 export default {
@@ -28,11 +29,11 @@ export default {
     },
     reset() {},
     clickAwayHandle(triggerIndex) {
-      console.log('NOT OVERRIDE HANDLE FOR: ' + triggerIndex);
+      notOverrideMessage('HANDLE', triggerIndex);
       return false;
     },
     isClickedParent(target) {
-      console.log('NOT OVERRIDE PARENT FOR: ' + target);
+      notOverrideMessage('PARENT', target);
       return false;
     },
   },

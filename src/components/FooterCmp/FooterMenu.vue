@@ -1,29 +1,28 @@
 <template lang='pug'>
-.footer__menu.menu-footer
-  .menu-footer__column(
+ul.footer__menu.menu-footer
+  li.menu-footer__column(
     v-for='(item, index) in menuItems',
     :class='itemHoverClass(index)',
-    ref='columns'
+    ref='items'
   )
-    BtnTag.menu-footer__title._footer-title {{ item.title }}
-    transition(
-      name='slide',
-      v-on:enter='enter',
-      v-on:after-enter='afterEnter',
-      v-on:leave='leave'
-    )
-      ul.menu-footer__list(
+    BtnTag.menu-footer__title._footer-title(ref='arrows') {{ item.title }}
+    TransitionSlide
+      DropDownMenu(
         v-if='areSubItems(item.items)',
         v-show='isSelectedOnMobile(index)',
         :key='"subList-" + index',
+        :items='item.items',
+        listClasses='menu-footer__list',
+        itemClasses='',
+        linkClasses='menu-footer__link',
         ref='subLists'
       )
-        li(v-for='(subItem, i) in item.items', :key='i')
-          LinkTag.menu-footer__link {{ subItem.title }}
 </template>
 
 <script>
 import dropDownMenuMixin from '@mxn/dropDownMenuMixin';
+import TransitionSlide from '@cmp/TransitionSlide';
+import DropDownMenu from '@cmp/DropDownMenu';
 import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 
@@ -31,6 +30,8 @@ export default {
   name: 'FooterMenu',
   mixins: [dropDownMenuMixin],
   components: {
+    TransitionSlide,
+    DropDownMenu,
     LinkTag,
     BtnTag,
   },
@@ -109,25 +110,6 @@ export default {
   methods: {
     areSubItems(items) {
       return items.length;
-    },
-    getSubTitle(parentTitle, index) {
-      const title = parentTitle.substr(0, parentTitle.length - 1);
-      return `${title} #${index}`;
-    },
-    isClickedParent(target) {
-      return this.checkRefArray(this.$refs.subLists, target);
-    },
-    clickAwayHandle(triggerIndex, target, context) {
-      if (context.checkChildren(triggerIndex, target, 2)) {
-        return true;
-      }
-
-      return this.checkRefArray(
-        this.$refs.columns,
-        target,
-        this.setSelectedItem,
-        true,
-      );
     },
   },
 };

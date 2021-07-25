@@ -12,24 +12,21 @@ ul.menu__list
       classes='menu__arrow',
       ref='arrows'
     )
-    transition(
-      name='slide',
-      v-on:enter='enter',
-      v-on:after-enter='afterEnter',
-      v-on:leave='leave'
-    )
-      ul.menu__sub-list(
+    TransitionSlide
+      DropDownMenu(
         v-if='areSubItems(item.items)',
         v-show='isSelectedOnMobile(index)',
         :key='"subList-" + index',
+        :items='item.items',
+        :headerMenuTitle='item.title',
         ref='subLists'
       )
-        li.menu__sub-item(v-for='i in item.items', :key='i')
-          LinkTag.menu__sub-link {{ getSubTitle(item.title, i) }}
 </template>
 
 <script>
 import dropDownMenuMixin from '@mxn/dropDownMenuMixin';
+import TransitionSlide from '@cmp/TransitionSlide';
+import DropDownMenu from '@cmp/DropDownMenu';
 import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 
@@ -37,6 +34,8 @@ export default {
   name: 'HeaderMenu',
   mixins: [dropDownMenuMixin],
   components: {
+    TransitionSlide,
+    DropDownMenu,
     LinkTag,
     BtnTag,
   },
@@ -64,32 +63,6 @@ export default {
   methods: {
     areSubItems(items) {
       return items;
-    },
-    getSubTitle(parentTitle, index) {
-      const title = parentTitle.substr(0, parentTitle.length - 1);
-      return `${title} #${index}`;
-    },
-    isClickedParent(target) {
-      return this.checkRefArray(this.$refs.subLists, target);
-    },
-    clickAwayHandle(triggerIndex, target, context) {
-      if (context.checkChildren(triggerIndex, target, 2)) {
-        return true;
-      }
-
-      // if (
-      //   this.isMobileTransitionEffect &&
-      //   this.checkRefArray(this.$refs.items, target, this.setSelectedItem, true)
-      // ) {
-      //   return true;
-      // }
-
-      return this.checkRefArray(
-        this.$refs.arrows,
-        target,
-        this.setSelectedItem,
-        true,
-      );
     },
   },
 };
