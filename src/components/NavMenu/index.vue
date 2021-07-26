@@ -8,7 +8,7 @@ ul(:class='listClasses')
     LinkTag(v-if='isHeaderMenu', :class='linkClasses') {{ item.title }}
     BtnTag(
       v-if='areSubItems(item.items)',
-      :iconClass='btnIconClass',
+      :iconClass='compBtnIconClass',
       :classes='btnClasses',
       ref='arrows'
     ) {{ getBtnText(item.title) }}
@@ -18,7 +18,7 @@ ul(:class='listClasses')
         v-show='isSelectedOnMobile(index)',
         :key='"subList-" + index',
         :items='item.items',
-        :headerMenuTitle='getBtnText(item.title)',
+        :headerMenuTitle='getItemTitle(index)',
         :listClasses='subListClasses',
         :itemClasses='subItemClasses',
         :linkClasses='subLinkClasses',
@@ -32,9 +32,9 @@ import isGadgetMixin from '@mxn/isGadgetMixin';
 import clickAwayMixin from '@mxn/clickAwayMixin';
 import resizeMixin from '@mxn/resizeMixin';
 import LinkTag from '@tags/LinkTag';
-import BtnTag from '@tags/LinkTag';
+import BtnTag from '@tags/BtnTag';
 import TransitionSlide from '@cmp/TransitionSlide';
-import DropDownMenu from '@cmp/DropDownMenu';
+import DropDownMenu from './DropDownMenu';
 
 export default {
   name: 'NavMenu',
@@ -44,13 +44,6 @@ export default {
     BtnTag,
     TransitionSlide,
     DropDownMenu,
-  },
-  data() {
-    return {
-      selectedItems: [],
-      selectedItemsCount: 0,
-      isMobileTransitionEffect: false,
-    };
   },
   props: {
     items: { type: Array, required: true },
@@ -66,6 +59,18 @@ export default {
     subItemClasses: { default: 'menu__sub-item' },
     subLinkClasses: { default: 'menu__sub-link' },
   },
+  data() {
+    return {
+      selectedItems: [],
+      selectedItemsCount: 0,
+      isMobileTransitionEffect: false,
+    };
+  },
+  computed: {
+    compBtnIconClass() {
+      return this.isHeaderMenu ? this.btnIconClass : '';
+    },
+  },
   methods: {
     getItemClasses(index) {
       return {
@@ -78,6 +83,9 @@ export default {
     },
     getBtnText(text) {
       return this.isHeaderMenu ? '' : text;
+    },
+    getItemTitle(index) {
+      return this.isHeaderMenu ? this.items[index].title : '';
     },
     isSelectedOnMobile(index) {
       if (!this.isMobileTransitionEffect) {
@@ -141,7 +149,7 @@ export default {
     },
   },
   created() {
-    this.menuItems.forEach(() => {
+    this.items.forEach(() => {
       this.selectedItems.push(false);
     });
   },

@@ -8,7 +8,6 @@ header.header
           .header__menu.menu
             nav.menu__body(:class='menuActiveClass')
               NavMenu(:items='menuItems', :isHeaderMenu='true', ref='menuBody')
-              //- HeaderMenu(ref='menuBody')
         .header__search
           SearchForm
         .header__actions.actions-header
@@ -31,7 +30,6 @@ import clickAwayMixin from '@mxn/clickAwayMixin';
 import LinkTag from '@tags/LinkTag';
 import BtnTag from '@tags/BtnTag';
 import ImgTag from '@tags/ImgTag';
-// import HeaderMenu from './HeaderMenu';
 import NavMenu from '@cmp/NavMenu';
 import SearchForm from './SearchForm';
 
@@ -42,7 +40,6 @@ export default {
     LinkTag,
     BtnTag,
     ImgTag,
-    // HeaderMenu,
     NavMenu,
     SearchForm,
   },

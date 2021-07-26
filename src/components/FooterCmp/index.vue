@@ -19,7 +19,6 @@
           subListClasses='menu-footer__list'
           subItemClasses=''
           subLinkClasses='menu-footer__link' />
-        <!-- <FooterMenu /> -->
         <FooterForm />
 		</div>
 	</div>
@@ -28,7 +27,6 @@
 
 <script>
 import LinkTag from '@tags/LinkTag';
-// import FooterMenu from './FooterMenu';
 import NavMenu from '@cmp/NavMenu';
 import FooterForm from './FooterForm';
 
@@ -36,7 +34,6 @@ export default {
   name: 'FooterCmp',
   components: {
     LinkTag,
-    // FooterMenu,
     NavMenu,
     FooterForm,
   },
