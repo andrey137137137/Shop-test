@@ -1,3 +1,10 @@
+._footer-title {
+  font-weight: 700;
+  @include adaptiveProp('font-size', 24, 20, 1);
+  line-height: toPercent(29, 24);
+  color: $black;
+}
+
 .footer {
   // .footer__container
   // &__container {
@@ -90,6 +97,8 @@
 }
 
 .menu-footer {
+  $block: &;
+
   @include minMd {
     display: flex;
   }
@@ -103,6 +112,14 @@
     @include maxMd {
       @include adaptiveProp('margin-bottom', 15, 30, 'max');
     }
+
+    &._hover {
+      #{$block}__title {
+        &::after {
+          transform: rotate(-180deg);
+        }
+      }
+    }
   }
 
   // .menu-footer__title
@@ -113,23 +130,24 @@
       margin-bottom: toEm(16px, 24px);
     }
 
-    ._init & {
-      @include rowReverseFlexOn(center, space-between);
-      width: 100%;
+    // ._init & {
+    @include rowFlexOn(center, space-between);
+    width: 100%;
+    // @extend .icon-ver_chevron;
 
-      // @extend ._icon-arrow-down;
-      &::before {
-        // @extend %ic;
-        font-size: 12px;
-        @include transition(transform);
-      }
+    &::after {
+      @extend %ic;
+      font-size: 12px;
+      @include transition(transform);
+      content: '\e90c';
     }
+    // }
 
-    &._active {
-      &::before {
-        transform: rotate(-180deg);
-      }
-    }
+    // &._active {
+    //   &::before {
+    //     transform: rotate(-180deg);
+    //   }
+    // }
   }
 
   // .menu-footer__list
@@ -142,6 +160,8 @@
 
     @include maxMd {
       padding-top: 15px;
+      @include transition(padding);
+      // @include transitionAll;
     }
   }
 

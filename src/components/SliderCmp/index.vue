@@ -101,3 +101,6 @@ export default {
   },
 };
 </script>
+
+<style lang='scss' src='@scssCmp/SliderCmp.scss'>
+</style>

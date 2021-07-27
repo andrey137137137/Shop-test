@@ -20,9 +20,10 @@
           subItemClasses=''
           subLinkClasses='menu-footer__link' />
         <FooterForm />
-		</div>
-	</div>
-</footer>
+      </div>
+    </div>
+  </footer>
+  <!-- itemHoverClass='_init icon-ver_chevron' -->
 </template>
 
 <script>
