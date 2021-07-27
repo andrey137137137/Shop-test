@@ -5,7 +5,13 @@ const { mapMutations } = createNamespacedHelpers('clickAway');
 export default {
   methods: {
     ...mapMutations({ addClickAwayHandle: 'addItem' }),
-    checkRefArray(arr, target, cb = null, toUseIndex = false) {
+    checkRefArray(
+      arr,
+      target,
+      cb = null,
+      toUseIndex = false,
+      cbAsCond = false,
+    ) {
       return arr.some((el, index) => {
         const elem = el.$el ? el.$el : el;
         const cond = target == elem;
@@ -16,8 +22,16 @@ export default {
 
         if (cond) {
           if (toUseIndex) {
+            if (cbAsCond) {
+              return cb(index);
+            }
+
             cb(index);
           } else {
+            if (cbAsCond) {
+              return cb();
+            }
+
             cb();
           }
 

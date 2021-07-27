@@ -111,12 +111,12 @@
 
     @include maxMd {
       @include adaptiveProp('margin-bottom', 15, 30, 'max');
-    }
 
-    &._hover {
-      #{$block}__title {
-        &::after {
-          transform: rotate(-180deg);
+      &._hover {
+        #{$block}__title {
+          &:before {
+            transform: rotate(-180deg);
+          }
         }
       }
     }
@@ -130,18 +130,18 @@
       margin-bottom: toEm(16px, 24px);
     }
 
-    // ._init & {
-    @include rowFlexOn(center, space-between);
-    width: 100%;
-    // @extend .icon-ver_chevron;
+    @include maxMd {
+      @include rowReverseFlexOn(center, space-between);
+      width: 100%;
+      // @extend .icon-ver_chevron;
 
-    &::after {
-      @extend %ic;
-      font-size: 12px;
-      @include transition(transform);
-      content: '\e90c';
+      &:before {
+        // @extend %ic;
+        font-size: 12px;
+        @include transition(transform);
+        // content: '\e90c';
+      }
     }
-    // }
 
     // &._active {
     //   &::before {

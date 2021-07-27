@@ -7,14 +7,14 @@ ul(:class='listClasses')
   )
     LinkTag(v-if='isHeaderMenu', :class='linkClasses') {{ item.title }}
     BtnTag(
-      v-if='areSubItems(item.items)',
-      :iconClass='compBtnIconClass',
+      v-if='areSubItems(index)',
+      :iconClass='btnIconClass',
       :classes='btnClasses',
       ref='arrows'
     ) {{ getBtnText(item.title) }}
     TransitionSlide
       DropDownMenu(
-        v-if='areSubItems(item.items)',
+        v-if='areSubItems(index)',
         v-show='isSelectedOnMobile(index)',
         :key='"subList-" + index',
         :items='item.items',
@@ -53,7 +53,6 @@ export default {
     // itemHoverClass: { type: String, default: 'menu-item--hover' },
     itemHoverClass: { type: String, default: '_hover' },
     linkClasses: { default: 'menu__link' },
-    btnIconClass: { type: String, default: 'ver_chevron' },
     btnClasses: { default: 'menu__arrow' },
     subListClasses: { default: 'menu__sub-list' },
     subItemClasses: { default: 'menu__sub-item' },
@@ -67,8 +66,10 @@ export default {
     };
   },
   computed: {
-    compBtnIconClass() {
-      return this.isHeaderMenu ? this.btnIconClass : '';
+    btnIconClass() {
+      return this.isHeaderMenu || this.isMobileTransitionEffect
+        ? 'ver_chevron'
+        : '';
     },
   },
   methods: {
@@ -78,7 +79,8 @@ export default {
         [this.itemHoverClass]: this.selectedItems[index],
       };
     },
-    areSubItems(items) {
+    areSubItems(index) {
+      const { items } = this.items[index];
       return this.isHeaderMenu ? items : items.length;
     },
     getBtnText(text) {
@@ -117,6 +119,15 @@ export default {
         this.selectedItemsCount = 0;
       }
     },
+    checkHeaderMobileItem(index) {
+      console.log(index);
+      if (!this.areSubItems(index)) {
+        return false;
+      }
+
+      this.setSelectedItem(index);
+      return true;
+    },
     isClickedParent(target) {
       return this.checkRefArray(this.$refs.subLists, target);
     },
@@ -125,12 +136,23 @@ export default {
         return true;
       }
 
-      // if (
-      //   this.isMobileTransitionEffect &&
-      //   this.checkRefArray(this.$refs.items, target, this.setSelectedItem, true)
-      // ) {
-      //   return true;
-      // }
+      if (!this.isHeaderMenu && !this.isMobileTransitionEffect) {
+        return false;
+      }
+
+      if (
+        this.isHeaderMenu &&
+        this.isMobileTransitionEffect &&
+        this.checkRefArray(
+          this.$refs.items,
+          target,
+          this.checkHeaderMobileItem,
+          true,
+          true,
+        )
+      ) {
+        return true;
+      }
 
       return this.checkRefArray(
         this.$refs.arrows,
