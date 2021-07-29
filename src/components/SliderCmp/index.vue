@@ -1,6 +1,6 @@
 <template>
   <section class="page__main-slider main-slider">
-    <div class="main-slider__container _container">
+    <div class="main-slider__container section-container">
       <div class="main-slider__body">
         <div class="main-slider__content content-main">
           <h1 class="content-main__title">
@@ -21,18 +21,21 @@
           <div class="slider-main__controls controls-slider-main">
             <div class="controls-slider-main__dotts"></div>
             <div class="controls-slider-main__arrows slider-arrows">
-              <button
-                type="button"
-                class="slider-arrow slider-arrow_prev _icon-arrow-down"
-              ></button>
-              <button
-                type="button"
-                class="slider-arrow slider-arrow_next _icon-arrow-down"
-              ></button>
+              <BtnTag
+                iconClass="hor_chevron"
+                classes="slider-arrow slider-arrow_prev"
+              ></BtnTag>
+              <BtnTag
+                iconClass="hor_chevron"
+                classes="slider-arrow slider-arrow_next"
+              ></BtnTag>
             </div>
           </div>
-          <div class="slider-main__body _swiper">
-            <div class="slider-main__slide" v-for="i in 3" :key="i">
+          <!-- <div class="slider-main__body _swiper"> -->
+          <!-- <div class="slider-main__slide" v-for="i in 3" :key="i"> -->
+          <!-- <swiper-slide class="slider-main__slide" v-for="i in 3" :key="i"> -->
+          <Swiper class="slider-main__body _swiper">
+            <SwiperSlide class="slider-main__slide">
               <div class="slider-main__image _ibg">
                 <ImgTag src="img/main-slider/01.jpg" alt="Image" />
               </div>
@@ -47,42 +50,8 @@
                   Rp 17.000.000
                 </div>
               </LinkTag>
-            </div>
-            <!-- <div class="slider-main__slide">
-              <div class="slider-main__image _ibg">
-                <img src="img/main-slider/02.jpg" alt="Картинка слайда" />
-              </div>
-              <a
-                href=""
-                data-swiper-parallax-opacity="0"
-                data-swiper-parallax-x="-100%"
-                class="slider-main__content"
-              >
-                <div class="slider-main__title">Bohauss</div>
-                <div class="slider-main__text">Luxury big sofa 2-seat</div>
-                <div class="slider-main__price _icon-arrow-link">
-                  Rp 17.000.000
-                </div>
-              </a>
-            </div>
-            <div class="slider-main__slide">
-              <div class="slider-main__image _ibg">
-                <img src="img/main-slider/03.jpg" alt="Картинка слайда" />
-              </div>
-              <a
-                href=""
-                data-swiper-parallax-opacity="0"
-                data-swiper-parallax-x="-100%"
-                class="slider-main__content"
-              >
-                <div class="slider-main__title">Bohauss</div>
-                <div class="slider-main__text">Luxury big sofa 2-seat</div>
-                <div class="slider-main__price _icon-arrow-link">
-                  Rp 17.000.000
-                </div>
-              </a>
-            </div> -->
-          </div>
+            </SwiperSlide>
+          </Swiper>
         </div>
       </div>
     </div>
@@ -90,14 +59,35 @@
 </template>
 
 <script>
+import BtnTag from '@tags/BtnTag';
 import ImgTag from '@tags/ImgTag';
 import LinkTag from '@tags/LinkTag';
+
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+
+// Import Swiper styles
+// import 'swiper/swiper.scss';
+
+// import 'swiper/components/pagination/pagination.min.css';
+// import 'swiper/components/navigation/navigation.min.css';
+
+// import './style.css';
+
+// import Swiper core and required modules
+// import SwiperCore, { Parallax, Pagination, Navigation } from 'swiper/core';
+
+// install Swiper modules
+// SwiperCore.use([Parallax, Pagination, Navigation]);
 
 export default {
   name: 'SliderCmp',
   components: {
+    BtnTag,
     ImgTag,
     LinkTag,
+    Swiper,
+    SwiperSlide,
   },
 };
 </script>
