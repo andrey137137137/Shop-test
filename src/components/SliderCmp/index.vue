@@ -20,21 +20,43 @@
         <div class="main-slider__slider slider-main">
           <div class="slider-main__controls controls-slider-main">
             <div class="controls-slider-main__dotts"></div>
+            <!-- slot="pagination" -->
             <div class="controls-slider-main__arrows slider-arrows">
               <BtnTag
                 iconClass="hor_chevron"
                 classes="slider-arrow slider-arrow_prev"
+                @click.native="prev"
               ></BtnTag>
+              <!-- slot="button-prev" -->
               <BtnTag
                 iconClass="hor_chevron"
                 classes="slider-arrow slider-arrow_next"
+                @click.native="next"
               ></BtnTag>
+              <!-- slot="button-next" -->
             </div>
           </div>
-          <!-- <div class="slider-main__body _swiper"> -->
-          <!-- <div class="slider-main__slide" v-for="i in 3" :key="i"> -->
-          <!-- <swiper-slide class="slider-main__slide" v-for="i in 3" :key="i"> -->
-          <Swiper class="slider-main__body _swiper">
+          <Swiper
+            ref="mySwiper"
+            class="slider-main__body _swiper"
+            :options="swiperOption"
+          >
+            <SwiperSlide class="slider-main__slide" v-for="i in 2" :key="i">
+              <div class="slider-main__image _ibg">
+                <ImgTag src="img/main-slider/01.jpg" alt="Image" />
+              </div>
+              <LinkTag
+                data-swiper-parallax-opacity="0"
+                data-swiper-parallax-x="-100%"
+                class="slider-main__content"
+              >
+                <div class="slider-main__title">Bohauss</div>
+                <div class="slider-main__text">Luxury big sofa 2-seat</div>
+                <div class="slider-main__price _icon-arrow-link">
+                  Rp 17.000.000
+                </div>
+              </LinkTag>
+            </SwiperSlide>
             <SwiperSlide class="slider-main__slide">
               <div class="slider-main__image _ibg">
                 <ImgTag src="img/main-slider/01.jpg" alt="Image" />
@@ -67,7 +89,8 @@ import LinkTag from '@tags/LinkTag';
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 
 // Import Swiper styles
-// import 'swiper/swiper.scss';
+// import 'swiper/css/swiper.css';
+import 'swiper/swiper.scss';
 
 // import 'swiper/components/pagination/pagination.min.css';
 // import 'swiper/components/navigation/navigation.min.css';
@@ -88,6 +111,38 @@ export default {
     LinkTag,
     Swiper,
     SwiperSlide,
+  },
+  data() {
+    return {
+      swiperOption: {
+        loop: true,
+        speed: 600,
+        parallax: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        // navigation: {
+        //   nextEl: '.swiper-button-next',
+        //   prevEl: '.swiper-button-prev',
+        // },
+      },
+    };
+  },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.$swiper;
+    },
+  },
+  methods: {
+    prev() {
+      console.log(this.swiper);
+      this.swiper.slidePrev();
+    },
+    next() {
+      console.log(this.swiper);
+      this.swiper.slideNext();
+    },
   },
 };
 </script>
