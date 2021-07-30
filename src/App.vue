@@ -3,7 +3,7 @@
     <div class="wrapper">
       <HeaderCmp />
       <div class="page">
-        <SliderCmp />
+        <MainSlider />
       </div>
       <FooterCmp />
     </div>
@@ -14,7 +14,7 @@
 import { createNamespacedHelpers } from 'vuex';
 import isGadgetMixin from '@mxn/isGadgetMixin';
 import HeaderCmp from '@cmp/HeaderCmp';
-import SliderCmp from '@cmp/SliderCmp';
+import MainSlider from '@cmp/MainSlider';
 import FooterCmp from '@cmp/FooterCmp';
 
 const clickAwayMapGetters = createNamespacedHelpers('clickAway').mapGetters;
@@ -25,7 +25,7 @@ export default {
   mixins: [isGadgetMixin],
   components: {
     HeaderCmp,
-    SliderCmp,
+    MainSlider,
     FooterCmp,
   },
   data() {
@@ -100,7 +100,3 @@ export default {
   },
 };
 </script>
-
-<style lang='scss'>
-@import '@scss/app';
-</style>

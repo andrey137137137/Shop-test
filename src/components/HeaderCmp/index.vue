@@ -101,5 +101,6 @@ export default {
 };
 </script>
 
-<style lang='scss' src='@scssCmp/HeaderCmp.scss'>
+<style lang='scss'>
+@import '@scssCmp/HeaderCmp';
 </style>

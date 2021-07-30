@@ -113,5 +113,6 @@ export default {
 };
 </script>
 
-<style lang='scss' src='@scssCmp/FooterCmp.scss'>
+<style lang='scss'>
+@import '@scssCmp/FooterCmp';
 </style>
