@@ -95,11 +95,19 @@ export default {
     SwiperSlide,
   },
   data() {
+    const $vm = this;
+
     return {
       swiperOption: {
         loop: true,
         speed: 600,
         parallax: true,
+        on: {
+          activeIndexChange: swiper => {
+            $vm.setCurIndex(swiper.activeIndex);
+            console.log(swiper);
+          },
+        },
       },
       slides: 3,
       curSlide: 0,

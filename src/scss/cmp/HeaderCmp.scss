@@ -224,9 +224,6 @@
     background-color: $orange;
     padding: 15px;
     flex: 1 1 100%;
-    // @include transition(margin);
-    // @include transition(padding);
-    // @include transition(height);
     @include transitionAll;
 
     @include minMd {
@@ -237,7 +234,6 @@
       visibility: hidden;
       pointer-events: none;
       transform: translateY(10px);
-      @include transitionAll;
     }
 
     @include maxMd {

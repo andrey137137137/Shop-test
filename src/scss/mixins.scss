@@ -66,60 +66,64 @@
   }
 }
 
-@mixin cssProp($property, $value) {
-  #{$property}: unquote($value);
+@mixin cssProp($property, $value, $important: 0) {
+  @if $important == 1 {
+    #{$property}: unquote($value) !important;
+  } @else {
+    #{$property}: unquote($value);
+  }
 }
 
-@mixin margin($value) {
+@mixin margin($value, $important: 0) {
   // margin: unquote($value);
   @include cssProp(margin, $value);
 }
 
-@mixin border($value) {
+@mixin border($value, $important: 0) {
   // border: unquote($value);
   @include cssProp(border, $value);
 }
 
-@mixin borderTopRadius($value) {
+@mixin borderTopRadius($value, $important: 0) {
   // border-top-radius: unquote($value);
   @include cssProp('border-top-radius', $value);
 }
 
-@mixin borderRightRadius($value) {
+@mixin borderRightRadius($value, $important: 0) {
   // border-right-radius: unquote($value);
   @include cssProp('border-right-radius', $value);
 }
 
-@mixin borderBottomRadius($value) {
+@mixin borderBottomRadius($value, $important: 0) {
   // border-bottom-radius: unquote($value);
   @include cssProp('border-bottom-radius', $value);
 }
 
-@mixin borderLeftRadius($value) {
+@mixin borderLeftRadius($value, $important: 0) {
   // border-left-radius: unquote($value);
   @include cssProp('border-left-radius', $value);
 }
 
-@mixin padding($value) {
+@mixin padding($value, $important: 0) {
   // padding: unquote($value);
   @include cssProp(padding, $value);
 }
 
-@mixin size($value) {
+@mixin size($value, $important: 0) {
   // size: unquote($value);
   @include cssProp(size, $value);
 }
 
-@mixin position($value) {
+@mixin position($value, $important: 0) {
   @include cssProp(position, $value);
 }
 
-@mixin transition($prop) {
-  transition: $prop $trsTime ease 0s;
+@mixin transition($prop, $time: $trsTime) {
+  transition: $prop $time ease 0s;
 }
 
-@mixin transitionAll {
-  @include transition(all);
+@mixin transitionAll($time: $trsTime) {
+  @include transition(all, $time);
 }
 
 @mixin adaptiveProp($prop, $min, $max, $mediaType: '') {

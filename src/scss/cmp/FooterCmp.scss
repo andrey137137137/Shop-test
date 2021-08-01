@@ -153,8 +153,7 @@
 
     @include maxMd {
       padding-top: 15px;
-      @include transition(padding);
-      // @include transitionAll;
+      @include transitionAll;
     }
   }
 

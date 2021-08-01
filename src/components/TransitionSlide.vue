@@ -6,17 +6,12 @@ transition(
   v-on:leave='leave'
 )
   slot
+  //- :css='false',
 </template>
 
 <script>
 export default {
   name: 'TransitionSlide',
-  // data() {
-  //   return {
-  //     transitionProperty: 'height, margin, padding',
-  //     transitionDuration: '1s',
-  //   };
-  // },
   methods: {
     enter(element) {
       element.style.width = getComputedStyle(element).width;
@@ -42,6 +37,10 @@ export default {
       // to `0` in the line above.
       requestAnimationFrame(() => {
         element.style.height = height;
+        // element.style.marginTop = getComputedStyle(element).marginTop;
+        // element.style.paddingTop = getComputedStyle(element).paddingTop;
+        // element.style.paddingBottom = getComputedStyle(element).paddingBottom;
+        // done();
       });
     },
     afterEnter(element) {
@@ -57,7 +56,11 @@ export default {
       getComputedStyle(element).height;
 
       requestAnimationFrame(() => {
+        // element.style.marginTop = 0;
+        // element.style.paddingTop = 0;
+        // element.style.paddingBottom = 0;
         element.style.height = 0;
+        // done();
       });
     },
   },
