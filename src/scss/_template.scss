@@ -271,11 +271,8 @@ body.ie {
 .slide {
   &-enter-active,
   &-leave-active {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    // @include margin('0 *', 1);
-    // @include padding('0 *', 1);
+    @include margin('0 *', 1);
+    @include padding('0 *', 1);
     overflow: hidden;
     // height: 230px;
     // visibility: visible;

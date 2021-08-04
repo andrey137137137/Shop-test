@@ -136,23 +136,23 @@ export default {
         return true;
       }
 
-      // if (!this.isHeaderMenu && !this.isMobileTransitionEffect) {
-      //   return false;
-      // }
+      if (!this.isHeaderMenu && !this.isMobileTransitionEffect) {
+        return false;
+      }
 
-      // if (
-      //   this.isHeaderMenu &&
-      //   this.isMobileTransitionEffect &&
-      //   this.checkRefArray(
-      //     this.$refs.items,
-      //     target,
-      //     this.checkHeaderMobileItem,
-      //     true,
-      //     true,
-      //   )
-      // ) {
-      //   return true;
-      // }
+      if (
+        this.isHeaderMenu &&
+        this.isMobileTransitionEffect &&
+        this.checkRefArray(
+          this.$refs.items,
+          target,
+          this.checkHeaderMobileItem,
+          true,
+          true,
+        )
+      ) {
+        return true;
+      }
 
       return this.checkRefArray(
         this.$refs.arrows,

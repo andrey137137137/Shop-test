@@ -66,55 +66,55 @@
   }
 }
 
-@mixin cssProp($property, $value, $important: 0) {
-  @if $important == 1 {
+@mixin cssProp($property, $value, $important: null) {
+  @if $important {
     #{$property}: unquote($value) !important;
   } @else {
     #{$property}: unquote($value);
   }
 }
 
-@mixin margin($value, $important: 0) {
+@mixin margin($value, $important: null) {
   // margin: unquote($value);
-  @include cssProp(margin, $value);
+  @include cssProp(margin, $value, $important);
 }
 
-@mixin border($value, $important: 0) {
+@mixin border($value, $important: null) {
   // border: unquote($value);
   @include cssProp(border, $value);
 }
 
-@mixin borderTopRadius($value, $important: 0) {
+@mixin borderTopRadius($value, $important: null) {
   // border-top-radius: unquote($value);
   @include cssProp('border-top-radius', $value);
 }
 
-@mixin borderRightRadius($value, $important: 0) {
+@mixin borderRightRadius($value, $important: null) {
   // border-right-radius: unquote($value);
   @include cssProp('border-right-radius', $value);
 }
 
-@mixin borderBottomRadius($value, $important: 0) {
+@mixin borderBottomRadius($value, $important: null) {
   // border-bottom-radius: unquote($value);
   @include cssProp('border-bottom-radius', $value);
 }
 
-@mixin borderLeftRadius($value, $important: 0) {
+@mixin borderLeftRadius($value, $important: null) {
   // border-left-radius: unquote($value);
   @include cssProp('border-left-radius', $value);
 }
 
-@mixin padding($value, $important: 0) {
+@mixin padding($value, $important: null) {
   // padding: unquote($value);
-  @include cssProp(padding, $value);
+  @include cssProp(padding, $value, $important);
 }
 
-@mixin size($value, $important: 0) {
+@mixin size($value, $important: null) {
   // size: unquote($value);
   @include cssProp(size, $value);
 }
 
-@mixin position($value, $important: 0) {
+@mixin position($value, $important: null) {
   @include cssProp(position, $value);
 }
 
@@ -126,7 +126,7 @@
   @include transition(all, $time);
 }
 
-@mixin adaptiveProp($prop, $min, $max, $mediaType: '') {
+@mixin adaptiveProp($prop, $min, $max, $mediaType: null) {
   $result: adaptiveValue($min, $max);
 
   @if ($mediaType == 'min' or $mediaType == 'max') {
@@ -166,10 +166,10 @@
 }
 
 @mixin flexOn(
-  $alignItems: '',
-  $justifyContent: '',
-  $isWrap: '',
-  $flexDirection: '',
+  $alignItems: null,
+  $justifyContent: null,
+  $isWrap: null,
+  $flexDirection: null,
   $display: flex
 ) {
   @if $display {
@@ -193,26 +193,34 @@
   }
 }
 
-@mixin inlineFlexOn($alignItems: center, $justifyContent: '', $isWrap: '') {
-  @include flexOn($alignItems, $justifyContent, $isWrap, '', inline-flex);
+@mixin inlineFlexOn($alignItems: center, $justifyContent: null, $isWrap: null) {
+  @include flexOn($alignItems, $justifyContent, $isWrap, null, inline-flex);
 }
 
-@mixin rowFlexOn($alignItems: center, $justifyContent: '', $isWrap: '') {
+@mixin rowFlexOn($alignItems: center, $justifyContent: null, $isWrap: null) {
   @include flexOn($alignItems, $justifyContent, $isWrap);
 }
 
-@mixin rowReverseFlexOn($alignItems: center, $justifyContent: '', $isWrap: '') {
+@mixin rowReverseFlexOn(
+  $alignItems: center,
+  $justifyContent: null,
+  $isWrap: null
+) {
   @include flexOn($alignItems, $justifyContent, $isWrap, row-reverse);
 }
 
-@mixin columnFlexOn($alignItems: flex-start, $justifyContent: '', $isWrap: '') {
+@mixin columnFlexOn(
+  $alignItems: flex-start,
+  $justifyContent: null,
+  $isWrap: null
+) {
   @include flexOn($alignItems, $justifyContent, $isWrap, column);
 }
 
 @mixin columnReverseFlexOn(
   $alignItems: flex-start,
-  $justifyContent: '',
-  $isWrap: ''
+  $justifyContent: null,
+  $isWrap: null
 ) {
   @include flexOn($alignItems, $justifyContent, $isWrap, column-reverse);
 }
@@ -247,7 +255,7 @@
   width: calc(#{$per}/#{$total});
 }
 
-@mixin pixelPerfect($page: '', $top: 0) {
+@mixin pixelPerfect($page: null, $top: 0) {
   #pixel_perfect {
     $img: '#{$page}.png';
 
