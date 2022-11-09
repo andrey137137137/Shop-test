@@ -1,13 +1,10 @@
-<template>
-  <div id="app">
-    <div class="wrapper">
-      <HeaderCmp />
-      <div class="page">
-        <MainSlider />
-      </div>
-      <FooterCmp />
-    </div>
-  </div>
+<template lang="pug">
+#app
+  .wrapper
+    HeaderCmp
+    .page
+      MainSlider
+    FooterCmp
 </template>
 
 <script>
